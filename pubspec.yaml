@@ -1,0 +1,29 @@
+name: fleet_watch
+description: Flutter app that displays cars on a map in real time, allows users to view car details, and track individual cars' locations
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  bloc: ^9.0.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  flutter_gen: ^5.10.0
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  logger: ^2.5.0
+
+dev_dependencies:
+  bloc_test: ^10.0.0
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^7.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true

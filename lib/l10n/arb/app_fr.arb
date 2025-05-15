@@ -1,0 +1,7 @@
+{
+    "@@locale": "fr",
+    "fleetWatchAppBarTitle": "Fleet Watch",
+    "@fleetWatchAppBarTitle": {
+        "description": "Texte affiché dans l'AppBar de la page du Fleet Watch"
+    }
+}
