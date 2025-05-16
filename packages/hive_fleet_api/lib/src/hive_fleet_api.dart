@@ -119,4 +119,10 @@ class HiveFleetApi implements FleetApi {
       return match;
     });
   }
+
+  @override
+  Future<void> close() async {
+    await _allCarsSubject?.close();
+    await _box?.close();
+  }
 }

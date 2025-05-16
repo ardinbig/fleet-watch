@@ -25,4 +25,7 @@ abstract class FleetApi {
     int id, {
     Duration pollInterval = const Duration(seconds: 3),
   });
+
+  /// Closes the client and frees up any resources.
+  Future<void> close();
 }
