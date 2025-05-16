@@ -28,6 +28,10 @@ class HiveFleetApi implements FleetApi {
   // Internal subject for streaming updates
   BehaviorSubject<List<Car>>? _allCarsSubject;
 
+  /// Gets the Hive box instance for car storage.
+  /// Returns null if the box hasn't been initialized.
+  Box<Car>? get box => _box;
+
   /// Initializes Hive and opens the box. Call before use.
   Future<void> init() async {
     await Hive.initFlutter();
