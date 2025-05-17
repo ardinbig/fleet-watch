@@ -14,6 +14,7 @@ dependencies:
   flutter_gen: ^5.10.0
   flutter_localizations:
     sdk: flutter
+  google_maps_flutter: ^2.12.2
   intl: any
   logger: ^2.5.0
 

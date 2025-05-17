@@ -53,6 +53,8 @@ unlinked_spec.ds
 **/android/app/profile
 **/android/app/release
 *.jks
+**/android/app/.cxx
+**/android/secrets.properties
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -110,3 +112,7 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+
+# Custom 
+
+pubspec.lock
