@@ -1,5 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:fleet_repository/fleet_repository.dart';
+part of 'home_bloc.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
