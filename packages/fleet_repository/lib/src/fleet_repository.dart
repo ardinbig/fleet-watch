@@ -76,4 +76,10 @@ class FleetRepository {
   Stream<Car> watchCachedCarLocation(int id, {Duration? pollInterval}) {
     return _localApi.watchCarLocation(id, pollInterval: pollInterval);
   }
+
+  /// Disposes any resources managed by the repository.
+  void dispose() {
+    _remoteApi.close();
+    _localApi.close();
+  }
 }

@@ -1,29 +1,10 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
+import 'package:fleet_repository/fleet_repository.dart';
+import 'package:fleet_watch/app/app.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-final log = Logger(printer: PrettyPrinter(methodCount: 0));
-
-class AppBlocObserver extends BlocObserver {
-  const AppBlocObserver();
-
-  @override
-  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
-    super.onChange(bloc, change);
-    log.d('onChange(${bloc.runtimeType}, $change)');
-  }
-
-  @override
-  void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
-    log.e('onError(${bloc.runtimeType}, $error, $stackTrace)');
-    super.onError(bloc, error, stackTrace);
-  }
-}
-
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+void bootstrap() {
   WidgetsFlutterBinding.ensureInitialized();
 
   FlutterError.onError = (details) {
@@ -36,8 +17,5 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   Bloc.observer = const AppBlocObserver();
-
-  // Add cross-flavor configuration here
-
-  runApp(await builder());
+  runApp(const App(createFleetRepository: FleetRepository.new));
 }
