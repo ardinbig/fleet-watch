@@ -119,7 +119,7 @@ class HiveFleetApi implements FleetApi {
     // Polling by mapping the all-cars stream to only the requested car
     return watchAllCars().map((cars) {
       final match = cars.firstWhere(
-        (c) => c.id == id,
+        (c) => c.id == id.toString(),
         orElse: () => throw FleetApiException('Car $id not found'),
       );
       return match;

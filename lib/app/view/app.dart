@@ -1,5 +1,4 @@
 import 'package:fleet_repository/fleet_repository.dart';
-import 'package:fleet_watch/home/bloc/home_bloc.dart';
 import 'package:fleet_watch/home/home.dart';
 import 'package:fleet_watch/l10n/arb/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,7 @@ class App extends StatelessWidget {
       child: BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(
           repository: context.read<FleetRepository>(),
-        ),
+        )..add(MapLoadCars()),
         child: const AppView(),
       ),
     );
