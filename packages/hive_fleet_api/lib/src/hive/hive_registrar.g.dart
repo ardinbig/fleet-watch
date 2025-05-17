@@ -8,11 +8,13 @@ import 'package:hive_fleet_api/src/hive/hive_adapters.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CarAdapter());
+    registerAdapter(CarStatusAdapter());
   }
 }
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(CarAdapter());
+    registerAdapter(CarStatusAdapter());
   }
 }

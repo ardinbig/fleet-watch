@@ -37,7 +37,9 @@ class HiveFleetApi implements FleetApi {
     await Hive.initFlutter();
     try {
       if (!Hive.isAdapterRegistered(0)) {
-        Hive.registerAdapter(CarAdapter());
+        Hive
+          ..registerAdapter(CarAdapter())
+          ..registerAdapter(CarStatusAdapter());
       }
 
       final encryptionKey = await _getEncryptionKey();

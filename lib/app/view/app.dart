@@ -13,10 +13,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<FleetRepository>(
-      create: (_) => createFleetRepository(),
+      create: (context) => createFleetRepository(),
       dispose: (repository) => repository.dispose(),
       child: BlocProvider<HomeBloc>(
-        create: (_) => HomeBloc(repository: context.read<FleetRepository>()),
+        create: (context) => HomeBloc(
+          repository: context.read<FleetRepository>(),
+        ),
         child: const AppView(),
       ),
     );
@@ -29,6 +31,8 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Fleet Watch',
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,

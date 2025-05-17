@@ -23,7 +23,7 @@ class Car extends Equatable {
   });
 
   /// The unique identifier of the car.
-  final int id;
+  final String id;
 
   /// The name of the car.
   final String name;

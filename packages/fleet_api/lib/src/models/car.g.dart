@@ -7,7 +7,7 @@ part of 'car.dart';
 // **************************************************************************
 
 Car _$CarFromJson(Map<String, dynamic> json) => Car(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       name: json['name'] as String,
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
@@ -21,7 +21,7 @@ Map<String, dynamic> _$CarToJson(Car instance) => <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
       'speed': instance.speed,
-      'status': _$CarStatusEnumMap[instance.status],
+      'status': _$CarStatusEnumMap[instance.status]!,
     };
 
 const _$CarStatusEnumMap = {

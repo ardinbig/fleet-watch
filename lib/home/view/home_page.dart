@@ -19,6 +19,10 @@ class HomePage extends StatelessWidget {
         title: Text(l10n.fleetWatchAppBarTitle),
       ),
       body: const HomeView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.read<HomeBloc>().add(MapUpdateCars()),
+        child: const Icon(Icons.refresh),
+      ),
     );
   }
 }
@@ -61,44 +65,37 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Fleet Map')),
-      body: BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) {
-          if (state is MapViewLoaded) {
-            _updateMarkers(state.cars);
-            if (_mapController != null && state.cars.isNotEmpty) {
-              _mapController!.animateCamera(
-                CameraUpdate.newLatLng(
-                  LatLng(state.cars.first.latitude, state.cars.first.longitude),
-                ),
-              );
-            }
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        if (state is MapViewLoaded) {
+          _updateMarkers(state.cars);
+          if (_mapController != null && state.cars.isNotEmpty) {
+            _mapController!.animateCamera(
+              CameraUpdate.newLatLng(
+                LatLng(state.cars.first.latitude, state.cars.first.longitude),
+              ),
+            );
           }
-        },
-        builder: (context, state) {
-          if (state is MapViewLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return GoogleMap(
-            onMapCreated: (controller) => mapController = controller,
-            initialCameraPosition: CameraPosition(
-              target: state is MapViewLoaded && state.cars.isNotEmpty
-                  ? LatLng(
-                      state.cars.first.latitude,
-                      state.cars.first.longitude,
-                    )
-                  : const LatLng(0, 0),
-              zoom: 12,
-            ),
-            markers: _markers,
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.read<HomeBloc>().add(MapUpdateCars()),
-        child: const Icon(Icons.refresh),
-      ),
+        }
+      },
+      builder: (context, state) {
+        if (state is MapViewLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return GoogleMap(
+          onMapCreated: (controller) => mapController = controller,
+          initialCameraPosition: CameraPosition(
+            target: state is MapViewLoaded && state.cars.isNotEmpty
+                ? LatLng(
+                    state.cars.first.latitude,
+                    state.cars.first.longitude,
+                  )
+                : const LatLng(0, 0),
+            zoom: 12,
+          ),
+          markers: _markers,
+        );
+      },
     );
   }
 }
