@@ -9,5 +9,17 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get fleetWatchAppBarTitle => 'Fleet Watch';
+  String get fleetWatchTitle => 'Fleet Watch';
+
+  @override
+  String get searchHintText => 'Rechercher par nom ou ID';
+
+  @override
+  String get filterAll => 'Tous';
+
+  @override
+  String get filterMoving => 'En mouvement';
+
+  @override
+  String get filterParked => 'Stationnés';
 }

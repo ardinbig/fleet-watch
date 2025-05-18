@@ -43,6 +43,9 @@ class HomeView extends StatelessWidget {
               title: car.name,
               snippet: car.status.toString().toUpperCase().split('.').last,
             ),
+            onTap: () {
+              //TODO(ardinbig): Implement onTap action
+            },
           ),
         )
         .toSet();

@@ -9,5 +9,17 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get fleetWatchAppBarTitle => 'Fleet Watch';
+  String get fleetWatchTitle => 'Fleet Watch';
+
+  @override
+  String get searchHintText => 'Search by name or ID';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get filterMoving => 'Moving';
+
+  @override
+  String get filterParked => 'Parked';
 }

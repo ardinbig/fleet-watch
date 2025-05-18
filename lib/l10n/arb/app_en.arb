@@ -1,7 +1,23 @@
 {
     "@@locale": "en",
-    "fleetWatchAppBarTitle": "Fleet Watch",
-    "@fleetWatchAppBarTitle": {
+    "fleetWatchTitle": "Fleet Watch",
+    "@fleetWatchTitle": {
         "description": "Text shown in the AppBar of the Fleet Watch Page"
+    },
+    "searchHintText": "Search by name or ID",
+    "@searchHintText": {
+        "description": "Hint text shown in the search bar"
+    },
+    "filterAll": "All",
+    "@filterAll": {
+        "description": "Filter option to show all cars"
+    },
+    "filterMoving": "Moving",
+    "@filterMoving": {
+        "description": "Filter option to show only moving cars"
+    },
+    "filterParked": "Parked",
+    "@filterParked": {
+        "description": "Filter option to show only parked cars"
     }
 }

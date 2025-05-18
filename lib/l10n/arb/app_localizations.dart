@@ -102,7 +102,31 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Fleet Watch'**
-  String get fleetWatchAppBarTitle;
+  String get fleetWatchTitle;
+
+  /// Hint text shown in the search bar
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or ID'**
+  String get searchHintText;
+
+  /// Filter option to show all cars
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// Filter option to show only moving cars
+  ///
+  /// In en, this message translates to:
+  /// **'Moving'**
+  String get filterMoving;
+
+  /// Filter option to show only parked cars
+  ///
+  /// In en, this message translates to:
+  /// **'Parked'**
+  String get filterParked;
 }
 
 class _AppLocalizationsDelegate

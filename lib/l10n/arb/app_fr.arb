@@ -1,7 +1,23 @@
 {
     "@@locale": "fr",
-    "fleetWatchAppBarTitle": "Fleet Watch",
-    "@fleetWatchAppBarTitle": {
+    "fleetWatchTitle": "Fleet Watch",
+    "@fleetWatchTitle": {
         "description": "Texte affiché dans l'AppBar de la page du Fleet Watch"
+    },
+    "searchHintText": "Rechercher par nom ou ID",
+    "@searchHintText": {
+        "description": "Texte du conseil affiché dans la barre de recherche"
+    },
+    "filterAll": "Tous",
+    "@filterAll": {
+        "description": " Option de filtrage pour afficher toutes les voitures"
+    },
+    "filterMoving": "En mouvement",
+    "@filterMoving": {
+        "description": "Option de filtrage pour n'afficher que les voitures en mouvement"
+    },
+    "filterParked": "Stationnés",
+    "@filterParked": {
+        "description": "Option de filtrage pour n'afficher que les voitures garées"
     }
 }
