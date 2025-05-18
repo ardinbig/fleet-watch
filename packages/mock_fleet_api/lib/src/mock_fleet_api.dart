@@ -60,7 +60,7 @@ class MockFleetApi implements FleetApi {
   @override
   Future<Car> fetchCarDetails(int id) async {
     try {
-      final response = await _dio.get('$_baseUrl/\$id');
+      final response = await _dio.get('$_baseUrl/cars/$id');
       if (response.statusCode == 200) {
         return Car.fromJson(response.data as JsonMap);
       } else {

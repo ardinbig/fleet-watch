@@ -36,3 +36,13 @@ class _UpdateCarLocation extends CarDetailEvent {
   @override
   List<Object> get props => [car];
 }
+
+/// Event when map controller is updated
+class MapControllerUpdated extends CarDetailEvent {
+  const MapControllerUpdated(this.controller);
+
+  final GoogleMapController controller;
+
+  @override
+  List<Object> get props => [controller];
+}

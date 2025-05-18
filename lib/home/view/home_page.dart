@@ -8,19 +8,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<HomeBloc, HomeState>(
-        builder: (context, state) {
-          if (state is MapViewLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return const Stack(
-            children: [
-              HomeView(),
-              CustomSearchBar(),
-              FilterButton(),
-            ],
-          );
-        },
+      body: SafeArea(
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is MapViewLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return const Stack(
+              children: [
+                HomeView(),
+                CustomSearchBar(),
+                FilterButton(),
+              ],
+            );
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: BlocBuilder<HomeBloc, HomeState>(

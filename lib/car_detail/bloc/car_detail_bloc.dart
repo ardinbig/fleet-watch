@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fleet_repository/fleet_repository.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'car_detail_event.dart';
 part 'car_detail_state.dart';
@@ -12,6 +13,7 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
     on<StartTrackingCar>(_onStartTracking);
     on<ToggleTracking>(_onToggleTracking);
     on<_UpdateCarLocation>(_onUpdateCarLocation);
+    on<MapControllerUpdated>(_onMapControllerUpdated);
   }
 
   final FleetRepository repository;
@@ -41,11 +43,26 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
     Emitter<CarDetailState> emit,
   ) {
     emit(state.copyWith(car: event.car));
+
+    // Update camera position when car location changes
+    state.mapController?.animateCamera(
+      CameraUpdate.newLatLng(
+        LatLng(event.car.latitude, event.car.longitude),
+      ),
+    );
+  }
+
+  void _onMapControllerUpdated(
+    MapControllerUpdated event,
+    Emitter<CarDetailState> emit,
+  ) {
+    emit(state.copyWith(mapController: event.controller));
   }
 
   @override
   Future<void> close() {
     _timer?.cancel();
+    state.mapController?.dispose();
     return super.close();
   }
 }
