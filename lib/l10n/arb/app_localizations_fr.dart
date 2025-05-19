@@ -22,4 +22,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get filterParked => 'Stationnés';
+
+  @override
+  String get startTracking => 'Suivre cette voiture';
+
+  @override
+  String get stopTracking => 'Arrêter le suivi';
 }

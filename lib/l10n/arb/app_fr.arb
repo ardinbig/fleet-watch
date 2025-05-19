@@ -19,5 +19,13 @@
     "filterParked": "Stationnés",
     "@filterParked": {
         "description": "Option de filtrage pour n'afficher que les voitures garées"
+    },
+    "startTracking": "Suivre cette voiture",
+    "@startTracking": {
+        "description": "Texte affiché sur le bouton permettant de lancer le suivi d'une voiture"
+    },
+    "stopTracking": "Arrêter le suivi",
+    "@stopTracking": {
+        "description": "Texte affiché sur le bouton permettant d'arrêter le suivi d'une voiture"
     }
 }

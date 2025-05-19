@@ -19,5 +19,13 @@
     "filterParked": "Parked",
     "@filterParked": {
         "description": "Filter option to show only parked cars"
+    },
+    "startTracking": "Track This Car",
+    "@startTracking": {
+        "description": "Text shown on button to start tracking a car"
+    },
+    "stopTracking": "Stop Tracking",
+    "@stopTracking": {
+        "description": "Text shown on button to stop tracking a car"
     }
 }

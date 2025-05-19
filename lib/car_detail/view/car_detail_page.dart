@@ -29,18 +29,38 @@ class CarDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(car.name)),
-      body: BlocBuilder<CarDetailBloc, CarDetailState>(
-        builder: (context, state) {
-          return Column(
-            children: [
-              CarInfoSection(car: state.car),
-              MapSection(car: car),
-              TrackingButton(isTracking: state.isTracking),
-            ],
-          );
-        },
+    return PopScope(
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        final bloc = context.read<CarDetailBloc>();
+        if (bloc.state.isTracking) {
+          bloc.add(const ToggleTracking());
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(car.name),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              final bloc = context.read<CarDetailBloc>();
+              if (bloc.state.isTracking) {
+                bloc.add(const ToggleTracking());
+              }
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: BlocBuilder<CarDetailBloc, CarDetailState>(
+          builder: (context, state) {
+            return Column(
+              children: [
+                CarInfoSection(car: state.car),
+                MapSection(car: car),
+                TrackingButton(isTracking: state.isTracking),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
