@@ -24,7 +24,7 @@ class _MapSectionState extends State<MapSection> {
 
   Future<void> _loadMarkerIcon() async {
     _carMarker = await BitmapDescriptor.asset(
-      ImageConfiguration.empty,
+      const ImageConfiguration(size: Size(48, 48)),
       'assets/car_marker.png',
     );
     if (mounted) setState(() {});

@@ -23,7 +23,7 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> _loadMarkerIcon() async {
     _carMarker = await BitmapDescriptor.asset(
-      ImageConfiguration.empty,
+      const ImageConfiguration(size: Size(48, 48)),
       'assets/car_marker.png',
     );
     if (mounted) setState(() {});
@@ -58,9 +58,10 @@ class _HomeViewState extends State<HomeView> {
   Set<Marker> _createMarkers(BuildContext context, List<Car> cars) {
     return cars.map(
       (car) {
+        final markerIcon = _carMarker ?? BitmapDescriptor.defaultMarker;
         return Marker(
           markerId: MarkerId(car.id),
-          icon: _carMarker ?? BitmapDescriptor.defaultMarker,
+          icon: markerIcon,
           position: LatLng(car.latitude, car.longitude),
           infoWindow: InfoWindow(
             title: car.name,
@@ -68,11 +69,15 @@ class _HomeViewState extends State<HomeView> {
           ),
           onTap: () {
             Navigator.of(context).push(
-              MaterialPageRoute<dynamic>(
-                builder: (context) {
-                  return CarDetailPage(
-                    car: car,
-                    repository: context.read<FleetRepository>(),
+              PageRouteBuilder<void>(
+                transitionDuration: const Duration(milliseconds: 500),
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: CarDetailPage(
+                      car: car,
+                      repository: context.read<FleetRepository>(),
+                    ),
                   );
                 },
               ),

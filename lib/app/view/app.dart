@@ -33,8 +33,8 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fleet Watch',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF0349A5),
         ),
         useMaterial3: true,
       ),
