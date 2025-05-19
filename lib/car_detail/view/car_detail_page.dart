@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CarDetailPage extends StatelessWidget {
-  const CarDetailPage({required this.car, required this.repository, super.key});
+  const CarDetailPage({
+    required this.car,
+    required this.repository,
+    super.key,
+  });
 
   final Car car;
   final FleetRepository repository;
@@ -54,9 +58,36 @@ class CarDetailView extends StatelessWidget {
           builder: (context, state) {
             return Column(
               children: [
-                CarInfoSection(car: state.car),
-                MapSection(car: car),
-                TrackingButton(isTracking: state.isTracking),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        MapSection(car: car),
+                        Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Material(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            borderRadius: BorderRadius.circular(20),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: CarInfoSection(car: state.car),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SizedBox(
+                    height: 80,
+                    width: double.infinity,
+                    child: TrackingButton(isTracking: state.isTracking),
+                  ),
+                ),
               ],
             );
           },

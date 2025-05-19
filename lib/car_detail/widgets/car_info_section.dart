@@ -8,16 +8,18 @@ class CarInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Column(
       children: [
         ListTile(
-          title: const Text('Speed'),
-          subtitle: Text('${car.speed} km/h'),
+          title: Text('Speed', style: textTheme.headlineMedium),
+          subtitle: Text('${car.speed} km/h', style: textTheme.bodyLarge),
         ),
         ListTile(
-          title: const Text('Last Location'),
+          title: Text('Last Location', style: textTheme.headlineMedium),
           subtitle: Text(
             'Lat: ${car.latitude}, Lng: ${car.longitude}',
+            style: textTheme.bodyLarge,
           ),
         ),
       ],
