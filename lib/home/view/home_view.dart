@@ -56,28 +56,30 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Set<Marker> _createMarkers(BuildContext context, List<Car> cars) {
-    return cars
-        .map(
-          (car) => Marker(
-            markerId: MarkerId(car.id),
-            icon: _carMarker ?? BitmapDescriptor.defaultMarker,
-            position: LatLng(car.latitude, car.longitude),
-            infoWindow: InfoWindow(
-              title: car.name,
-              snippet: car.status.toString().toUpperCase().split('.').last,
-            ),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute<dynamic>(
-                  builder: (context) => CarDetailPage(
+    return cars.map(
+      (car) {
+        return Marker(
+          markerId: MarkerId(car.id),
+          icon: _carMarker ?? BitmapDescriptor.defaultMarker,
+          position: LatLng(car.latitude, car.longitude),
+          infoWindow: InfoWindow(
+            title: car.name,
+            snippet: car.status.toString().toUpperCase().split('.').last,
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute<dynamic>(
+                builder: (context) {
+                  return CarDetailPage(
                     car: car,
                     repository: context.read<FleetRepository>(),
-                  ),
-                ),
-              );
-            },
-          ),
-        )
-        .toSet();
+                  );
+                },
+              ),
+            );
+          },
+        );
+      },
+    ).toSet();
   }
 }

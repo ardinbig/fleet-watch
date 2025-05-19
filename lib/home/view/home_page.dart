@@ -14,11 +14,33 @@ class HomePage extends StatelessWidget {
             if (state is MapViewLoading) {
               return const Center(child: CircularProgressIndicator());
             }
-            return const Stack(
+            return Stack(
               children: [
-                HomeView(),
-                CustomSearchBar(),
-                FilterButton(),
+                const HomeView(),
+                Positioned(
+                  top: 18,
+                  left: 18,
+                  right: 18,
+                  child: SizedBox(
+                    height: 60,
+                    child: Material(
+                      elevation: 3,
+                      shadowColor: Theme.of(context).colorScheme.shadow,
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(30),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CustomSearchBar(),
+                            FilterButton(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             );
           },

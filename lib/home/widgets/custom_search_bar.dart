@@ -10,13 +10,10 @@ class CustomSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return Positioned(
-      top: 16,
-      left: 16,
-      right: 80,
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.6,
       child: Material(
-        elevation: 4,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(26),
         child: TextField(
           decoration: InputDecoration(
             hintText: l10n.searchHintText,
@@ -27,8 +24,9 @@ class CustomSearchBar extends StatelessWidget {
               vertical: 12,
             ),
           ),
-          onChanged: (query) =>
-              context.read<HomeBloc>().add(MapSearchQueryChanged(query)),
+          onChanged: (query) {
+            context.read<HomeBloc>().add(MapSearchQueryChanged(query));
+          },
         ),
       ),
     );
