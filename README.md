@@ -85,7 +85,8 @@ A Flutter application that tracks and displays cars on a map in real-time, allow
         <tr>
             <td style="text-align: center">
                 <strong>Car Detail View</strong> <br>
-                Displays car name, speed, and last known location with a mini-map.
+                Displays car name, speed, and last known <br>
+		location with a mini-map.
             </td> 
             <td style="text-align: center">
                 <strong>Car Tracking Activated</strong> <br>
@@ -93,7 +94,8 @@ A Flutter application that tracks and displays cars on a map in real-time, allow
             </td> 
             <td style="text-align: center">
                 <strong>Offline Mode</strong> <br>
-                Indicates when the device is offline and data is loaded from local storage.
+                Indicates when the device is offline and <br>
+		data is loaded from local storage.
             </td> 
         </tr>
         <tr>
@@ -225,22 +227,18 @@ Widget build(BuildContext context) {
 Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info.plist` to include the new locale.
 
 ```xml
-    ...
 
-    <key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>fr</string>
-	</array>
+<key>CFBundleLocalizations</key>
+<array>
+	<string>en</string>
+	<string>fr</string>
+</array>
 
-    ...
 ```
 
 ### Generating Translations
 
 To use the latest translations changes, you will need to generate them:
-
-1. Generate localizations for the current project:
 
 ```sh
 flutter gen-l10n --arb-dir="lib/l10n/arb"
