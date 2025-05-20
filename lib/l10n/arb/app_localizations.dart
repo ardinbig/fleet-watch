@@ -139,6 +139,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stop Tracking'**
   String get stopTracking;
+
+  /// Title shown when device loses internet connection
+  ///
+  /// In en, this message translates to:
+  /// **'You are offline'**
+  String get offlineTitle;
+
+  /// Message shown when device loses internet connection
+  ///
+  /// In en, this message translates to:
+  /// **'It looks like your device is currently offline.'**
+  String get offlineMessage;
+
+  /// Title shown when an error has occurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error has occurred'**
+  String get errorTitle;
 }
 
 class _AppLocalizationsDelegate

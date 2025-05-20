@@ -28,4 +28,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stopTracking => 'Stop Tracking';
+
+  @override
+  String get offlineTitle => 'You are offline';
+
+  @override
+  String get offlineMessage =>
+      'It looks like your device is currently offline.';
+
+  @override
+  String get errorTitle => 'An error has occurred';
 }

@@ -27,5 +27,17 @@
     "stopTracking": "Stop Tracking",
     "@stopTracking": {
         "description": "Text shown on button to stop tracking a car"
+    },
+    "offlineTitle": "You are offline",
+    "@offlineTitle": {
+        "description": "Title shown when device loses internet connection"
+    },
+    "offlineMessage": "It looks like your device is currently offline.",
+    "@offlineMessage": {
+        "description": "Message shown when device loses internet connection"
+    },
+    "errorTitle": "An error has occurred",
+    "@errorTitle": {
+        "description": "Title shown when an error has occurred."
     }
 }

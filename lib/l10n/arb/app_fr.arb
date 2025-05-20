@@ -27,5 +27,17 @@
     "stopTracking": "Arrêter le suivi",
     "@stopTracking": {
         "description": "Texte affiché sur le bouton permettant d'arrêter le suivi d'une voiture"
+    },
+    "offlineTitle": "Vous êtes hors ligne",
+    "@offlineTitle": {
+        "description": "Titre affiché lorsque l'appareil perd la connexion internet"
+    },
+    "offlineMessage": "Il semble que votre appareil soit actuellement hors ligne",
+    "@offlineMessage": {
+        "description": "Titre affiché lorsque l'appareil perd la connexion internet"
+    },
+    "errorTitle": "Une erreur s'est produite",
+    "@errorTitle": {
+        "description": "Titre affiché lorsqu'une erreur s'est produite."
     }
 }

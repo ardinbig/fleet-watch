@@ -28,4 +28,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get stopTracking => 'Arrêter le suivi';
+
+  @override
+  String get offlineTitle => 'Vous êtes hors ligne';
+
+  @override
+  String get offlineMessage =>
+      'Il semble que votre appareil soit actuellement hors ligne';
+
+  @override
+  String get errorTitle => 'Une erreur s\'est produite';
 }
