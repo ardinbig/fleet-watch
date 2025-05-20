@@ -38,4 +38,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorTitle => 'An error has occurred';
+
+  @override
+  String get carLastLocation => 'Last Location';
+
+  @override
+  String get carStatusMoving => 'Moving';
+
+  @override
+  String get carStatusParked => 'Parked';
+
+  @override
+  String get carStatusUnknown => 'Unknown';
 }

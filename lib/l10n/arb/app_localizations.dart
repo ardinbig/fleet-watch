@@ -157,6 +157,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An error has occurred'**
   String get errorTitle;
+
+  /// Label for showing the last known location of a car
+  ///
+  /// In en, this message translates to:
+  /// **'Last Location'**
+  String get carLastLocation;
+
+  /// Status when car is moving
+  ///
+  /// In en, this message translates to:
+  /// **'Moving'**
+  String get carStatusMoving;
+
+  /// Status when car is parked
+  ///
+  /// In en, this message translates to:
+  /// **'Parked'**
+  String get carStatusParked;
+
+  /// Status when car state is unknown
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get carStatusUnknown;
 }
 
 class _AppLocalizationsDelegate

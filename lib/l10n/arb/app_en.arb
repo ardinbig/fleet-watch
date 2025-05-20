@@ -39,5 +39,21 @@
     "errorTitle": "An error has occurred",
     "@errorTitle": {
         "description": "Title shown when an error has occurred."
+    },
+    "carLastLocation": "Last Location",
+    "@carLastLocation": {
+        "description": "Label for showing the last known location of a car"
+    },
+    "carStatusMoving": "Moving",
+    "@carStatusMoving": {
+        "description": "Status when car is moving"
+    },
+    "carStatusParked": "Parked",
+    "@carStatusParked": {
+        "description": "Status when car is parked"
+    },
+    "carStatusUnknown": "Unknown",
+    "@carStatusUnknown": {
+        "description": "Status when car state is unknown"
     }
 }

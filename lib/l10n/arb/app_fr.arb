@@ -39,5 +39,21 @@
     "errorTitle": "Une erreur s'est produite",
     "@errorTitle": {
         "description": "Titre affiché lorsqu'une erreur s'est produite."
+    },
+    "carLastLocation": "Dernière Localisation",
+    "@carLastLocation": {
+        "description": "Etiquette indiquant la dernière localisation connue d'une voiture"
+    },
+    "carStatusMoving": "En mouvement",
+    "@carStatusMoving": {
+        "description": "État lorsque la voiture est en mouvement"
+    },
+    "carStatusParked": "Stationné",
+    "@carStatusParked": {
+        "description": "État lorsque la voiture est garée"
+    },
+    "carStatusUnknown": "Inconnu",
+    "@carStatusUnknown": {
+        "description": "Statut lorsque l'état de la voiture est inconnu"
     }
 }

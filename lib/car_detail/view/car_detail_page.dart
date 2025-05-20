@@ -63,7 +63,6 @@ class CarDetailView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        MapSection(car: car),
                         Padding(
                           padding: const EdgeInsets.all(12),
                           child: Material(
@@ -76,6 +75,7 @@ class CarDetailView extends StatelessWidget {
                             ),
                           ),
                         ),
+                        MapSection(car: car),
                       ],
                     ),
                   ),
