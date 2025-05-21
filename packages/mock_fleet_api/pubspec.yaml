@@ -1,0 +1,18 @@
+name: mock_fleet_api
+description: A Dart package implementing FleetApi via Dio to fetch remote fleet data.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  dio: ^5.8.0+1
+  fleet_api:
+    path: ../fleet_api
+  logger: ^2.5.0
+
+dev_dependencies:
+  mocktail: ^1.0.4
+  test: ^1.26.2
+  very_good_analysis: ^7.0.0

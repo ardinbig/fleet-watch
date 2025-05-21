@@ -1,4 +1,4 @@
-package com.ardinbig.fleetwatch.fleet_watch
+package com.ardinbig.fleetwatch
 
 import io.flutter.embedding.android.FlutterActivity
 
