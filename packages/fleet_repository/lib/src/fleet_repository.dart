@@ -1,5 +1,6 @@
 import 'package:fleet_api/fleet_api.dart';
 import 'package:hive_fleet_api/hive_fleet_api.dart';
+import 'package:meta/meta.dart';
 import 'package:mock_fleet_api/mock_fleet_api.dart';
 
 /// {@template fleet_repository}
@@ -19,6 +20,20 @@ class FleetRepository {
   final MockFleetApi _remoteApi;
   final HiveFleetApi _localApi;
 
+  /// Remote API type for testing.
+  /// This is used to verify the type of the remote API in tests.
+  /// It is marked as [@visibleForTesting] to indicate that it is intended for
+  /// testing purposes only.
+  @visibleForTesting
+  String get remoteApiType => _remoteApi.runtimeType.toString();
+
+  /// Local API type for testing.
+  /// This is used to verify the type of the local API in tests.
+  /// It is marked as [@visibleForTesting] to indicate that it is intended for
+  /// testing purposes only.
+  @visibleForTesting
+  String get localApiType => _localApi.runtimeType.toString();
+
   /// Initializes the repository and local storage.
   Future<void> init() async {
     await _localApi.init();
@@ -30,7 +45,7 @@ class FleetRepository {
       final cars = await _remoteApi.fetchCars();
       // Store cars in local storage
       for (final car in cars) {
-        await _localApi.box!.put(car.id, car);
+        await _localApi.saveCar(car);
       }
       return cars;
     } on Exception catch (_) {
@@ -60,7 +75,7 @@ class FleetRepository {
     try {
       final car = await _remoteApi.fetchCarDetails(id);
       // Update in cache
-      await _localApi.box!.put(car.id, car);
+      await _localApi.saveCar(car);
       return car;
     } on Exception catch (_) {
       return getCachedCarDetails(id);
