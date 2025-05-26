@@ -57,7 +57,6 @@ void main() {
 
     void setupMocks() {
       // Local API mocks
-      when(() => localApi.init()).thenAnswer((_) async {});
       when(() => localApi.box).thenReturn(box);
       when(() => localApi.fetchCars()).thenAnswer((_) async => cars);
       when(() => localApi.saveCar(any())).thenAnswer((_) async {});
@@ -95,11 +94,6 @@ void main() {
         remoteApi: remoteApi,
         localApi: localApi,
       );
-    });
-
-    test('init initializes local api', () async {
-      await repository.init();
-      verify(() => localApi.init()).called(1);
     });
 
     group('Constructor', () {

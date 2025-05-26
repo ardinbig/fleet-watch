@@ -20,8 +20,10 @@ class HiveFleetApi implements FleetApi {
     this.pollInterval = const Duration(seconds: 3),
     HiveInterface? hive,
     FlutterSecureStorage? secureStorage,
-  })  : _hive = hive ?? Hive,
-        _secureStorage = secureStorage ?? const FlutterSecureStorage();
+  }) : _hive = hive ?? Hive,
+       _secureStorage = secureStorage ?? const FlutterSecureStorage() {
+    _init();
+  }
 
   /// Polling interval for fetching data from the box.
   /// This is used to update the stream of cars.
@@ -47,7 +49,7 @@ class HiveFleetApi implements FleetApi {
   /// Initialize the HiveFleetApi.
   ///
   /// This method must be called before using any other methods.
-  Future<void> init() async {
+  Future<void> _init() async {
     try {
       await _hive.initFlutter();
       await _registerAdapters();

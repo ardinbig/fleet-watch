@@ -11,11 +11,9 @@ import 'package:mock_fleet_api/mock_fleet_api.dart';
 /// {@endtemplate}
 class FleetRepository {
   /// {@macro fleet_repository}
-  FleetRepository({
-    MockFleetApi? remoteApi,
-    HiveFleetApi? localApi,
-  })  : _remoteApi = remoteApi ?? MockFleetApi(),
-        _localApi = localApi ?? HiveFleetApi();
+  FleetRepository({MockFleetApi? remoteApi, HiveFleetApi? localApi})
+    : _remoteApi = remoteApi ?? MockFleetApi(),
+      _localApi = localApi ?? HiveFleetApi();
 
   final MockFleetApi _remoteApi;
   final HiveFleetApi _localApi;
@@ -33,11 +31,6 @@ class FleetRepository {
   /// testing purposes only.
   @visibleForTesting
   String get localApiType => _localApi.runtimeType.toString();
-
-  /// Initializes the repository and local storage.
-  Future<void> init() async {
-    await _localApi.init();
-  }
 
   /// Fetch cars from remote, cache locally, and return list.
   Future<List<Car>> fetchAndCacheCars() async {

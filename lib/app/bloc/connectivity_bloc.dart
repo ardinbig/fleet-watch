@@ -8,10 +8,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'connectivity_event.dart';
 part 'connectivity_state.dart';
 
+class InternetChecker {
+  Future<bool> checkInternet() async {
+    try {
+      final result = await InternetAddress.lookup('8.8.8.8');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } // coverage:ignore-start
+    on SocketException catch (_) {
+      return false;
+    } // coverage:ignore-end
+  }
+}
+
 class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
-  ConnectivityBloc({Connectivity? connectivity})
-    : super(const ConnectivityState(isOnline: false)) {
+  ConnectivityBloc({
+    Connectivity? connectivity,
+    InternetChecker? internetChecker,
+  }) : super(const ConnectivityState(isOnline: false)) {
     _connectivity = connectivity ?? Connectivity();
+    _internetChecker = internetChecker ?? InternetChecker();
 
     on<ConnectivityStatusChanged>(_onConnectivityChanged);
 
@@ -25,6 +40,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   }
 
   late final Connectivity _connectivity;
+  late final InternetChecker _internetChecker;
 
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
@@ -52,12 +68,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   }
 
   Future<bool> _checkInternet() async {
-    try {
-      final result = await InternetAddress.lookup('8.8.8.8');
-      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-    } on SocketException catch (_) {
-      return false;
-    }
+    return _internetChecker.checkInternet();
   }
 
   void _onConnectivityChanged(

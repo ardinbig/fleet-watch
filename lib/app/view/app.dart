@@ -15,7 +15,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<FleetRepository>(
-      create: (context) => createFleetRepository(),
+      create: (_) => createFleetRepository(),
       dispose: (repository) => repository.dispose(),
       child: MultiBlocProvider(
         providers: [
@@ -35,28 +35,6 @@ class App extends StatelessWidget {
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
-  void _showSnackBar({
-    required BuildContext context,
-    required String title,
-    required String message,
-    required ContentType contentType,
-    Duration? duration,
-  }) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: AwesomeSnackbarContent(
-          title: title,
-          message: message,
-          contentType: contentType,
-        ),
-        backgroundColor: Colors.transparent,
-        duration: duration ?? const Duration(seconds: 3),
-        behavior: SnackBarBehavior.floating,
-        elevation: 0,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -74,15 +52,13 @@ class AppView extends StatelessWidget {
             listener: (context, state) {
               final l10n = context.l10n;
               if (!state.isOnline) {
-                _showSnackBar(
+                showSnackBar(
                   context: context,
                   title: l10n.offlineTitle,
                   message: l10n.offlineMessage,
                   contentType: ContentType.warning,
                   duration: const Duration(days: 1),
                 );
-              } else {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
               }
             },
           ),
@@ -91,7 +67,7 @@ class AppView extends StatelessWidget {
               if (state is MapViewError) {
                 final l10n = context.l10n;
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                _showSnackBar(
+                showSnackBar(
                   context: context,
                   title: l10n.errorTitle,
                   message: state.message,
@@ -105,4 +81,26 @@ class AppView extends StatelessWidget {
       ),
     );
   }
+}
+
+void showSnackBar({
+  required BuildContext context,
+  required String title,
+  required String message,
+  required ContentType contentType,
+  Duration? duration,
+}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: AwesomeSnackbarContent(
+        title: title,
+        message: message,
+        contentType: contentType,
+      ),
+      backgroundColor: Colors.transparent,
+      duration: duration ?? const Duration(seconds: 3),
+      behavior: SnackBarBehavior.floating,
+      elevation: 0,
+    ),
+  );
 }

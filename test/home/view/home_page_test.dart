@@ -6,9 +6,9 @@ import '../../helpers/helpers.dart';
 
 void main() {
   group('HomePage', () {
-    testWidgets('renders body Center', (tester) async {
+    testWidgets('renders body SafeArea', (tester) async {
       await tester.pumpApp(const HomePage());
-      expect(find.byType(Center), findsOneWidget);
+      expect(find.byType(SafeArea), findsOneWidget);
     });
   });
 }
