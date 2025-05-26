@@ -46,9 +46,7 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
 
     // Update camera position when car location changes
     state.mapController?.animateCamera(
-      CameraUpdate.newLatLng(
-        LatLng(event.car.latitude, event.car.longitude),
-      ),
+      CameraUpdate.newLatLng(LatLng(event.car.latitude, event.car.longitude)),
     );
   }
 

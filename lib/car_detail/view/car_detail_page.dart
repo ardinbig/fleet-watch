@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CarDetailPage extends StatelessWidget {
-  const CarDetailPage({
-    required this.car,
-    required this.repository,
-    super.key,
-  });
+  const CarDetailPage({required this.car, required this.repository, super.key});
 
   final Car car;
   final FleetRepository repository;
@@ -66,8 +62,9 @@ class CarDetailView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(12),
                           child: Material(
-                            color:
-                                Theme.of(context).colorScheme.primaryContainer,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                             child: Padding(
                               padding: const EdgeInsets.all(16),

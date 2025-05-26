@@ -86,7 +86,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final filteredCars = state.cars.where((car) {
       final matchesSearch =
           car.name.toLowerCase().contains(query) || car.id.contains(query);
-      final matchesStatus = state.filterStatus == 'All' ||
+      final matchesStatus =
+          state.filterStatus == 'All' ||
           car.status.toString().split('.').last.toLowerCase() ==
               state.filterStatus.toLowerCase();
       return matchesSearch && matchesStatus;

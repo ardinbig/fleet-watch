@@ -56,35 +56,33 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Set<Marker> _createMarkers(BuildContext context, List<Car> cars) {
-    return cars.map(
-      (car) {
-        final markerIcon = _carMarker ?? BitmapDescriptor.defaultMarker;
-        return Marker(
-          markerId: MarkerId(car.id),
-          icon: markerIcon,
-          position: LatLng(car.latitude, car.longitude),
-          infoWindow: InfoWindow(
-            title: car.name,
-            snippet: car.status.toString().toUpperCase().split('.').last,
-          ),
-          onTap: () {
-            Navigator.of(context).push(
-              PageRouteBuilder<void>(
-                transitionDuration: const Duration(milliseconds: 500),
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: CarDetailPage(
-                      car: car,
-                      repository: context.read<FleetRepository>(),
-                    ),
-                  );
-                },
-              ),
-            );
-          },
-        );
-      },
-    ).toSet();
+    return cars.map((car) {
+      final markerIcon = _carMarker ?? BitmapDescriptor.defaultMarker;
+      return Marker(
+        markerId: MarkerId(car.id),
+        icon: markerIcon,
+        position: LatLng(car.latitude, car.longitude),
+        infoWindow: InfoWindow(
+          title: car.name,
+          snippet: car.status.toString().toUpperCase().split('.').last,
+        ),
+        onTap: () {
+          Navigator.of(context).push(
+            PageRouteBuilder<void>(
+              transitionDuration: const Duration(milliseconds: 500),
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: CarDetailPage(
+                    car: car,
+                    repository: context.read<FleetRepository>(),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      );
+    }).toSet();
   }
 }

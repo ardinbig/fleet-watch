@@ -4,7 +4,7 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.8.0
 
 dependencies:
   awesome_snackbar_content: ^0.1.6
@@ -30,6 +30,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
+  test: any
   very_good_analysis: ^7.0.0
 
 flutter:

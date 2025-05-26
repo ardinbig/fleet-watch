@@ -19,13 +19,11 @@ class App extends StatelessWidget {
       dispose: (repository) => repository.dispose(),
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<ConnectivityBloc>(
-            create: (_) => ConnectivityBloc(),
-          ),
+          BlocProvider<ConnectivityBloc>(create: (_) => ConnectivityBloc()),
           BlocProvider<HomeBloc>(
-            create: (context) => HomeBloc(
-              repository: context.read<FleetRepository>(),
-            )..add(MapLoadCars()),
+            create: (context) =>
+                HomeBloc(repository: context.read<FleetRepository>())
+                  ..add(MapLoadCars()),
           ),
         ],
         child: const AppView(),
@@ -65,9 +63,7 @@ class AppView extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fleet Watch',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF0349A5),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0349A5)),
         useMaterial3: true,
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

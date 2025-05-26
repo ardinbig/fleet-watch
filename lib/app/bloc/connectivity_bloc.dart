@@ -9,16 +9,22 @@ part 'connectivity_event.dart';
 part 'connectivity_state.dart';
 
 class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
-  ConnectivityBloc() : super(const ConnectivityState(isOnline: true)) {
+  ConnectivityBloc({Connectivity? connectivity})
+    : super(const ConnectivityState(isOnline: false)) {
+    _connectivity = connectivity ?? Connectivity();
+
     on<ConnectivityStatusChanged>(_onConnectivityChanged);
 
     // Initial check
     _checkConnection();
 
     // Listen for changes
-    _connectivitySubscription =
-        Connectivity().onConnectivityChanged.listen((_) => _checkConnection());
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
+      (_) => _checkConnection(),
+    );
   }
+
+  late final Connectivity _connectivity;
 
   StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
@@ -37,7 +43,10 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   }
 
   Future<bool> _checkConnectivity() async {
-    final results = await Connectivity().checkConnectivity();
+    final results = await _connectivity.checkConnectivity();
+    if (results.contains(ConnectivityResult.none)) {
+      return false;
+    }
     return results.contains(ConnectivityResult.wifi) ||
         results.contains(ConnectivityResult.mobile);
   }
