@@ -13,7 +13,7 @@ class FleetRepository {
   /// {@macro fleet_repository}
   FleetRepository({MockFleetApi? remoteApi, HiveFleetApi? localApi})
     : _remoteApi = remoteApi ?? MockFleetApi(),
-      _localApi = localApi ?? HiveFleetApi();
+      _localApi = localApi ?? hiveFleetApiFactory();
 
   final MockFleetApi _remoteApi;
   final HiveFleetApi _localApi;
@@ -31,6 +31,13 @@ class FleetRepository {
   /// testing purposes only.
   @visibleForTesting
   String get localApiType => _localApi.runtimeType.toString();
+
+  /// Factory function to create a [HiveFleetApi] instance.
+  /// This is used for testing purposes to allow mocking of the local API.
+  /// It is marked as [@visibleForTesting] to indicate that it is intended for
+  /// testing purposes only.
+  @visibleForTesting
+  static HiveFleetApi Function() hiveFleetApiFactory = HiveFleetApi.new;
 
   /// Fetch cars from remote, cache locally, and return list.
   Future<List<Car>> fetchAndCacheCars() async {
