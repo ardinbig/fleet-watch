@@ -24,11 +24,11 @@ class ToggleTracking extends CarDetailEvent {
   const ToggleTracking();
 }
 
-/// Internal event emitted when a car's location is updated
+/// Event emitted when a car's location is updated
 ///
 /// This event is not meant to be dispatched directly by the UI
-class _UpdateCarLocation extends CarDetailEvent {
-  const _UpdateCarLocation(this.car);
+class UpdateCarLocation extends CarDetailEvent {
+  const UpdateCarLocation(this.car);
 
   /// The car with updated location
   final Car car;

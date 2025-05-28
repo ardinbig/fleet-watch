@@ -5,6 +5,7 @@ import 'package:fleet_api/fleet_api.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:hive_fleet_api/src/hive/hive_adapters.dart';
+import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// {@template hive_fleet_api}
@@ -19,8 +20,10 @@ class HiveFleetApi implements FleetApi {
     this.pollInterval = const Duration(seconds: 3),
     HiveInterface? hive,
     FlutterSecureStorage? secureStorage,
-  })  : _hive = hive ?? Hive,
-        _secureStorage = secureStorage ?? const FlutterSecureStorage();
+  }) : _hive = hive ?? Hive,
+       _secureStorage = secureStorage ?? const FlutterSecureStorage() {
+    _init();
+  }
 
   /// Polling interval for fetching data from the box.
   /// This is used to update the stream of cars.
@@ -35,6 +38,7 @@ class HiveFleetApi implements FleetApi {
   Box<Car>? _box;
 
   /// Accessor for testing
+  @visibleForTesting
   Box<Car>? get box => _box;
 
   // Internal subject for streaming updates
@@ -45,7 +49,7 @@ class HiveFleetApi implements FleetApi {
   /// Initialize the HiveFleetApi.
   ///
   /// This method must be called before using any other methods.
-  Future<void> init() async {
+  Future<void> _init() async {
     try {
       await _hive.initFlutter();
       await _registerAdapters();
@@ -59,6 +63,19 @@ class HiveFleetApi implements FleetApi {
       );
     } catch (e) {
       throw FleetApiException('Failed initializing Hive: $e');
+    }
+  }
+
+  /// Saves a car to the box
+  ///
+  /// This is used by the repository to cache cars without directly
+  /// accessing private members.
+  Future<void> saveCar(Car car) async {
+    _assertInitialized();
+    try {
+      await _box!.put(car.id, car);
+    } catch (e) {
+      throw FleetApiException('Failed to save car: $e');
     }
   }
 

@@ -18,8 +18,9 @@ class FilterButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(26),
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            final currentFilter =
-                state is MapViewLoaded ? state.filterStatus : 'All';
+            final currentFilter = state is MapViewLoaded
+                ? state.filterStatus
+                : 'All';
             return PopupMenuButton<String>(
               initialValue: currentFilter,
               onSelected: (value) {

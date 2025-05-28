@@ -9,7 +9,9 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required this.repository}) : super(MapViewInitial()) {
+  HomeBloc({required FleetRepository repository})
+    : _repository = repository,
+      super(MapViewInitial()) {
     on<MapLoadCars>(_onLoadCars);
     on<MapUpdateCars>(_onUpdateCars);
     on<MapControllerUpdated>(_onMapControllerUpdated);
@@ -17,14 +19,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<MapFilterStatusChanged>(_onFilterStatusChanged);
   }
 
-  final FleetRepository repository;
+  final FleetRepository _repository;
   Timer? _timer;
 
   Future<void> _onLoadCars(MapLoadCars event, Emitter<HomeState> emit) async {
     emit(MapViewLoading());
     try {
-      await repository.init();
-      final cars = await repository.fetchAndCacheCars();
+      final cars = await _repository.fetchAndCacheCars();
       emit(MapViewLoaded(cars: cars, filteredCars: cars));
 
       // Start periodic updates
@@ -43,7 +44,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     if (state is MapViewLoaded) {
       final currentState = state as MapViewLoaded;
       try {
-        final cars = await repository.getCachedCars();
+        final cars = await _repository.getCachedCars();
         emit(_applyFilters(currentState.copyWith(cars: cars)));
       } on Exception catch (e) {
         emit(MapViewError(e.toString()));
@@ -86,7 +87,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final filteredCars = state.cars.where((car) {
       final matchesSearch =
           car.name.toLowerCase().contains(query) || car.id.contains(query);
-      final matchesStatus = state.filterStatus == 'All' ||
+      final matchesStatus =
+          state.filterStatus == 'All' ||
           car.status.toString().split('.').last.toLowerCase() ==
               state.filterStatus.toLowerCase();
       return matchesSearch && matchesStatus;

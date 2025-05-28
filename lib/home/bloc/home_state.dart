@@ -31,12 +31,12 @@ class MapViewLoaded extends HomeState {
 
   @override
   List<Object?> get props => [
-        cars,
-        filteredCars,
-        controller,
-        searchQuery,
-        filterStatus,
-      ];
+    cars,
+    filteredCars,
+    controller,
+    searchQuery,
+    filterStatus,
+  ];
 
   /// Creates a copy of the state with updated fields
   MapViewLoaded copyWith({

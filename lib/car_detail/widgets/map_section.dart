@@ -50,9 +50,9 @@ class _MapSectionState extends State<MapSection> {
               zoom: 16,
             ),
             onMapCreated: (controller) {
-              context
-                  .read<CarDetailBloc>()
-                  .add(MapControllerUpdated(controller));
+              context.read<CarDetailBloc>().add(
+                MapControllerUpdated(controller),
+              );
             },
             markers: {marker},
             zoomControlsEnabled: false,

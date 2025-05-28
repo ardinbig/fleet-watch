@@ -35,10 +35,7 @@ class CarInfoSection extends StatelessWidget {
                 _getLocalizedStatus(car.status, l10n).toUpperCase(),
                 style: textTheme.labelLarge,
               ),
-              const Icon(
-                Icons.directions_car,
-                size: 34,
-              ),
+              const Icon(Icons.directions_car, size: 34),
             ],
           ),
         ),

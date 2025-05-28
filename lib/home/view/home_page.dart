@@ -32,10 +32,7 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 8),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CustomSearchBar(),
-                            FilterButton(),
-                          ],
+                          children: [CustomSearchBar(), FilterButton()],
                         ),
                       ),
                     ),
