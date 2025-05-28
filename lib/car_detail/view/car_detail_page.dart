@@ -1,6 +1,5 @@
 import 'package:fleet_repository/fleet_repository.dart';
-import 'package:fleet_watch/car_detail/bloc/car_detail_bloc.dart';
-import 'package:fleet_watch/car_detail/widgets/widgets.dart';
+import 'package:fleet_watch/car_detail/car_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

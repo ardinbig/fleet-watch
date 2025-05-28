@@ -1,5 +1,6 @@
 import 'package:fleet_repository/fleet_repository.dart';
 import 'package:fleet_watch/app/bloc/connectivity_bloc.dart';
+import 'package:fleet_watch/car_detail/bloc/car_detail_bloc.dart';
 import 'package:fleet_watch/home/bloc/home_bloc.dart';
 import 'package:fleet_watch/l10n/arb/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +15,16 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey,
+    List<NavigatorObserver>? navigatorObservers,
     FleetRepository? fleetRepository,
     ConnectivityBloc? connectivityBloc,
     HomeBloc? homeBloc,
+    CarDetailBloc? carDetailBloc,
   }) {
     final repository = fleetRepository ?? MockFleetRepository();
     final connectivity = connectivityBloc ?? ConnectivityBloc();
     final map = homeBloc ?? HomeBloc(repository: repository);
+    final carDetail = carDetailBloc ?? CarDetailBloc(repository: repository);
 
     return pumpWidget(
       RepositoryProvider<FleetRepository>.value(
@@ -29,8 +33,10 @@ extension PumpApp on WidgetTester {
           providers: [
             BlocProvider(create: (_) => connectivity),
             BlocProvider(create: (_) => map),
+            BlocProvider(create: (_) => carDetail),
           ],
           child: MaterialApp(
+            navigatorObservers: navigatorObservers ?? [],
             scaffoldMessengerKey: scaffoldMessengerKey,
             localizationsDelegates: const [
               AppLocalizations.delegate,
