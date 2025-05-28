@@ -12,7 +12,7 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
   CarDetailBloc({required this.repository}) : super(CarDetailState.initial()) {
     on<StartTrackingCar>(_onStartTracking);
     on<ToggleTracking>(_onToggleTracking);
-    on<_UpdateCarLocation>(_onUpdateCarLocation);
+    on<UpdateCarLocation>(_onUpdateCarLocation);
     on<MapControllerUpdated>(_onMapControllerUpdated);
   }
 
@@ -33,13 +33,13 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
         final updatedCar = await repository.fetchAndCacheCarDetails(
           int.parse(state.car.id),
         );
-        add(_UpdateCarLocation(updatedCar));
+        add(UpdateCarLocation(updatedCar));
       });
     }
   }
 
   void _onUpdateCarLocation(
-    _UpdateCarLocation event,
+    UpdateCarLocation event,
     Emitter<CarDetailState> emit,
   ) {
     emit(state.copyWith(car: event.car));
