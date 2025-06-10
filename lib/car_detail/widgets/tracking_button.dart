@@ -25,9 +25,10 @@ class _TrackingButtonState extends State<TrackingButton>
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     )..repeat(reverse: true);
-    _animation = Tween<double>(begin: 0, end: 4).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: 0,
+      end: 4,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -74,9 +75,9 @@ class _TrackingButtonState extends State<TrackingButton>
                             backgroundColor: theme.colorScheme.surface,
                           ),
                           onPressed: connectivityState.isOnline
-                              ? () => context
-                                  .read<CarDetailBloc>()
-                                  .add(const ToggleTracking())
+                              ? () => context.read<CarDetailBloc>().add(
+                                  const ToggleTracking(),
+                                )
                               : null,
                           child: Text(l10n.stopTracking),
                         )
@@ -86,9 +87,9 @@ class _TrackingButtonState extends State<TrackingButton>
                             minimumSize: const Size.fromHeight(56),
                           ),
                           onPressed: connectivityState.isOnline
-                              ? () => context
-                                  .read<CarDetailBloc>()
-                                  .add(const ToggleTracking())
+                              ? () => context.read<CarDetailBloc>().add(
+                                  const ToggleTracking(),
+                                )
                               : null,
                           child: Text(l10n.startTracking),
                         ),
