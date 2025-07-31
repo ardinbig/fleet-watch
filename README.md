@@ -43,7 +43,7 @@ A Flutter application that tracks and displays cars on a map in real-time, allow
 
 ## 📹 Demo Video
 
-[🎥 Watch Full Demo on MEGA](https://mega.nz/file/cw9UTBDD#b2Ed-Z6upaveOiCSssuDsbJeaqZ-AxV_hSY-gBYqMdM)
+[🎥 Watch Full Demo on MEGA](https://mega.nz/file/VkEm3Kba#b2Ed-Z6upaveOiCSssuDsbJeaqZ-AxV_hSY-gBYqMdM)
 
 ---
 
