@@ -9,7 +9,7 @@ environment:
 dependencies:
   awesome_snackbar_content: ^0.1.6
   bloc: ^9.0.0
-  connectivity_plus: ^6.1.4
+  connectivity_plus: ^7.0.0
   equatable: ^2.0.7
   fleet_repository:
     path: packages/fleet_repository
