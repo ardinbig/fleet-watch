@@ -16,8 +16,8 @@ class MockFleetApi implements FleetApi {
     Dio? dio,
     String baseUrl = 'https://68263c13397e48c913157416.mockapi.io',
     this.pollInterval = const Duration(seconds: 5),
-  })  : _dio = dio ?? Dio(BaseOptions(baseUrl: baseUrl)),
-        _baseUrl = baseUrl {
+  }) : _dio = dio ?? Dio(BaseOptions(baseUrl: baseUrl)),
+       _baseUrl = baseUrl {
     _dio.options.connectTimeout = const Duration(seconds: 15);
     _dio.options.receiveTimeout = const Duration(seconds: 15);
     _dio.interceptors.add(AppInterceptors());
@@ -53,8 +53,10 @@ class MockFleetApi implements FleetApi {
   @override
   Stream<List<Car>> watchAllCars({Duration? pollInterval}) {
     final interval = pollInterval ?? this.pollInterval;
-    return Stream.periodic(interval, (_) => fetchCars())
-        .asyncMap((future) => future);
+    return Stream.periodic(
+      interval,
+      (_) => fetchCars(),
+    ).asyncMap((future) => future);
   }
 
   @override
@@ -80,8 +82,10 @@ class MockFleetApi implements FleetApi {
   @override
   Stream<Car> watchCarLocation(int id, {Duration? pollInterval}) {
     final interval = pollInterval ?? this.pollInterval;
-    return Stream.periodic(interval, (_) => fetchCarDetails(id))
-        .asyncMap((future) => future);
+    return Stream.periodic(
+      interval,
+      (_) => fetchCarDetails(id),
+    ).asyncMap((future) => future);
   }
 
   @override

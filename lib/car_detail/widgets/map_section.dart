@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fleet_repository/fleet_repository.dart';
 import 'package:fleet_watch/car_detail/bloc/car_detail_bloc.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class _MapSectionState extends State<MapSection> {
   @override
   void initState() {
     super.initState();
-    _loadMarkerIcon();
+    unawaited(_loadMarkerIcon());
   }
 
   Future<void> _loadMarkerIcon() async {

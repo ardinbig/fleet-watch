@@ -101,7 +101,7 @@ void main() {
         expect(repository.localApiType, equals('MockHiveFleetApi'));
       });
 
-      test('creates default dependencies when none provided', () {
+      test('creates default dependencies when none provided', () async {
         final mockHiveFleetApi = MockHiveFleetApi();
         when(() => mockHiveFleetApi.box).thenReturn(box);
         when(mockHiveFleetApi.close).thenAnswer((_) async {});
@@ -112,7 +112,7 @@ void main() {
         expect(defaultRepo, isNotNull);
         expect(defaultRepo.remoteApiType, equals('MockFleetApi'));
         expect(defaultRepo.localApiType, equals('MockHiveFleetApi'));
-        defaultRepo.dispose();
+        await defaultRepo.dispose();
       });
     });
 
@@ -218,8 +218,8 @@ void main() {
       });
     });
 
-    test('dispose closes both remote and local api clients', () {
-      repository.dispose();
+    test('dispose closes both remote and local api clients', () async {
+      await repository.dispose();
       verify(() => remoteApi.close()).called(1);
       verify(() => localApi.close()).called(1);
     });

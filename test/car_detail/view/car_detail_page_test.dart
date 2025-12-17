@@ -80,8 +80,8 @@ void main() {
       await tester.pumpApp(
         Builder(
           builder: (context) => ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
+            onPressed: () async {
+              await Navigator.of(context).push(
                 MaterialPageRoute<void>(
                   builder: (_) => BlocProvider.value(
                     value: carDetailBloc,

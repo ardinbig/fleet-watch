@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fleet_watch/app/bloc/connectivity_bloc.dart';
 import 'package:fleet_watch/car_detail/bloc/car_detail_bloc.dart';
 import 'package:fleet_watch/l10n/l10n.dart';
@@ -18,17 +20,22 @@ class _TrackingButtonState extends State<TrackingButton>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  @override
-  void initState() {
-    super.initState();
+  Future<void> _init() async {
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
-    )..repeat(reverse: true);
+    );
+    await _controller.repeat(reverse: true);
     _animation = Tween<double>(
       begin: 0,
       end: 4,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    unawaited(_init());
   }
 
   @override

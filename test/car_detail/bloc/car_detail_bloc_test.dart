@@ -55,8 +55,8 @@ void main() {
     );
   });
 
-  tearDown(() {
-    carDetailBloc.close();
+  tearDown(() async {
+    await carDetailBloc.close();
   });
 
   test('initial state should be CarDetailState.initial()', () {
@@ -88,7 +88,7 @@ void main() {
   });
 
   test('creates timer that fetches car updates periodically', () {
-    return FakeAsync().run((clock) {
+    return FakeAsync().run((clock) async {
       when(
         () => mockRepository.fetchAndCacheCarDetails(1),
       ).thenAnswer((_) async => updatedMockCar);
@@ -136,7 +136,7 @@ void main() {
       verifyNoMoreInteractions(mockRepository);
 
       // Clean up resources
-      bloc.close();
+      await bloc.close();
     });
   });
 

@@ -40,14 +40,14 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
     }
   }
 
-  void _onUpdateCarLocation(
+  Future<void> _onUpdateCarLocation(
     UpdateCarLocation event,
     Emitter<CarDetailState> emit,
-  ) {
+  ) async {
     emit(state.copyWith(car: event.car));
 
     // Update camera position when car location changes
-    state.mapController?.animateCamera(
+    await state.mapController?.animateCamera(
       CameraUpdate.newLatLng(LatLng(event.car.latitude, event.car.longitude)),
     );
   }
