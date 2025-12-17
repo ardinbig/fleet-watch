@@ -20,22 +20,18 @@ class _TrackingButtonState extends State<TrackingButton>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  Future<void> _init() async {
+  @override
+  void initState() {
+    super.initState();
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    await _controller.repeat(reverse: true);
+    unawaited(_controller.repeat(reverse: true));
     _animation = Tween<double>(
       begin: 0,
       end: 4,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    unawaited(_init());
   }
 
   @override

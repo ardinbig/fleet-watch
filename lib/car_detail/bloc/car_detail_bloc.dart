@@ -25,19 +25,27 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
     emit(state.copyWith(car: event.car));
   }
 
-  void _onToggleTracking(ToggleTracking event, Emitter<CarDetailState> emit) {
+  Future<void> _onToggleTracking(
+    ToggleTracking event,
+    Emitter<CarDetailState> emit,
+  ) async {
     final isTracking = !state.isTracking;
     emit(state.copyWith(isTracking: isTracking));
     _timer?.cancel();
 
     if (isTracking) {
       _timer = Timer.periodic(const Duration(seconds: 5), (_) async {
-        final updatedCar = await _repository.fetchAndCacheCarDetails(
-          int.parse(state.car.id),
-        );
-        add(UpdateCarLocation(updatedCar));
+        await _fetchCarUpdate();
       });
     }
+  }
+
+  Future<void> _fetchCarUpdate() async {
+    await _repository
+        .fetchAndCacheCarDetails(
+          int.parse(state.car.id),
+        )
+        .then((updatedCar) => add(UpdateCarLocation(updatedCar)));
   }
 
   Future<void> _onUpdateCarLocation(
