@@ -22,7 +22,7 @@ class HiveFleetApi implements FleetApi {
     FlutterSecureStorage? secureStorage,
   }) : _hive = hive ?? Hive,
        _secureStorage = secureStorage ?? const FlutterSecureStorage() {
-    _init();
+    unawaited(_init());
   }
 
   /// Polling interval for fetching data from the box.
