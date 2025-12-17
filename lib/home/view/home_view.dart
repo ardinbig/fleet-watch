@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fleet_repository/fleet_repository.dart';
 import 'package:fleet_watch/car_detail/view/car_detail_page.dart';
 import 'package:fleet_watch/home/bloc/home_bloc.dart';
@@ -18,14 +20,14 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _loadMarkerIcon();
+    unawaited(_loadMarkerIcon());
   }
 
   Future<void> _loadMarkerIcon() async {
-    _carMarker = await BitmapDescriptor.asset(
+    await BitmapDescriptor.asset(
       const ImageConfiguration(size: Size(48, 48)),
       'assets/car_marker.png',
-    );
+    ).then((value) => _carMarker = value);
     if (mounted) setState(() {});
   }
 
@@ -66,8 +68,8 @@ class _HomeViewState extends State<HomeView> {
           title: car.name,
           snippet: car.status.toString().toUpperCase().split('.').last,
         ),
-        onTap: () {
-          Navigator.of(context).push(
+        onTap: () async {
+          await Navigator.of(context).push(
             PageRouteBuilder<void>(
               transitionDuration: const Duration(milliseconds: 500),
               pageBuilder: (context, animation, secondaryAnimation) {

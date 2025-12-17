@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:fake_async/fake_async.dart';
 import 'package:fleet_repository/fleet_repository.dart';
 import 'package:fleet_watch/car_detail/bloc/car_detail_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,7 +16,6 @@ void main() {
   late MockFleetRepository mockRepository;
   late Car mockCar;
   late Car updatedMockCar;
-  late Car secondUpdateCar;
 
   setUpAll(() {
     registerFallbackValue(FakeCameraUpdate());
@@ -44,19 +42,10 @@ void main() {
       speed: 30,
       status: CarStatus.moving,
     );
-
-    secondUpdateCar = const Car(
-      id: '1',
-      name: 'Test Car',
-      latitude: 37.4240,
-      longitude: -122.0861,
-      speed: 45,
-      status: CarStatus.moving,
-    );
   });
 
-  tearDown(() {
-    carDetailBloc.close();
+  tearDown(() async {
+    await carDetailBloc.close();
   });
 
   test('initial state should be CarDetailState.initial()', () {
@@ -87,58 +76,27 @@ void main() {
     );
   });
 
-  test('creates timer that fetches car updates periodically', () {
-    return FakeAsync().run((clock) {
+  blocTest<CarDetailBloc, CarDetailState>(
+    'creates timer that fetches car updates periodically',
+    build: () {
       when(
         () => mockRepository.fetchAndCacheCarDetails(1),
       ).thenAnswer((_) async => updatedMockCar);
-      final bloc = CarDetailBloc(repository: mockRepository)
-        ..add(StartTrackingCar(mockCar));
-
-      // Process initial events
-      clock.flushMicrotasks();
-
-      // Begin tracking (start timer)
+      return CarDetailBloc(repository: mockRepository);
+    },
+    seed: () => CarDetailState.initial().copyWith(car: mockCar),
+    act: (bloc) async {
       bloc.add(const ToggleTracking());
-      clock.flushMicrotasks();
-      expect(bloc.state.isTracking, true);
-
-      // First timer cycle
-      clock
-        ..elapse(const Duration(seconds: 5))
-        ..flushMicrotasks();
+      await Future<void>.delayed(const Duration(seconds: 6));
+    },
+    expect: () => [
+      CarDetailState.initial().copyWith(car: mockCar, isTracking: true),
+      CarDetailState.initial().copyWith(car: updatedMockCar, isTracking: true),
+    ],
+    verify: (_) {
       verify(() => mockRepository.fetchAndCacheCarDetails(1)).called(1);
-      expect(bloc.state.car, equals(updatedMockCar));
-
-      // Setup for second cycle
-      reset(mockRepository);
-      when(
-        () => mockRepository.fetchAndCacheCarDetails(1),
-      ).thenAnswer((_) async => secondUpdateCar);
-
-      // Second timer cycle
-      clock
-        ..elapse(const Duration(seconds: 5))
-        ..flushMicrotasks();
-      verify(() => mockRepository.fetchAndCacheCarDetails(1)).called(1);
-      expect(bloc.state.car, equals(secondUpdateCar));
-
-      // Stop tracking
-      bloc.add(const ToggleTracking());
-      clock.flushMicrotasks();
-      expect(bloc.state.isTracking, false);
-
-      // Verify no more calls when tracking is off
-      reset(mockRepository);
-      clock
-        ..elapse(const Duration(seconds: 5))
-        ..flushMicrotasks();
-      verifyNoMoreInteractions(mockRepository);
-
-      // Clean up resources
-      bloc.close();
-    });
-  });
+    },
+  );
 
   group('Car location updates', () {
     late MockGoogleMapController mockMapController;

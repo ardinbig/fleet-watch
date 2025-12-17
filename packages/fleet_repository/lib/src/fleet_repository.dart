@@ -93,8 +93,8 @@ class FleetRepository {
   }
 
   /// Disposes any resources managed by the repository.
-  void dispose() {
-    _remoteApi.close();
-    _localApi.close();
+  Future<void> dispose() async {
+    await _remoteApi.close();
+    await _localApi.close();
   }
 }

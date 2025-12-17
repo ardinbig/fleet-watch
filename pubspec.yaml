@@ -4,26 +4,26 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.10.0
 
 dependencies:
-  awesome_snackbar_content: ^0.1.6
-  bloc: ^9.0.0
-  connectivity_plus: ^6.1.4
+  awesome_snackbar_content: ^0.1.8
+  bloc: ^9.1.0
+  connectivity_plus: ^7.0.0
   equatable: ^2.0.7
   fleet_repository:
     path: packages/fleet_repository
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
-  flutter_gen: ^5.10.0
+  flutter_gen: ^5.12.0
   flutter_launcher_icons: "^0.14.3"
   flutter_localizations:
     sdk: flutter
   gap: ^3.0.1
-  google_maps_flutter: ^2.12.2
+  google_maps_flutter: ^2.14.0
   intl: any
-  logger: ^2.5.0
+  logger: ^2.6.2
 
 dev_dependencies:
   bloc_test: ^10.0.0

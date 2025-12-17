@@ -70,10 +70,10 @@ void main() {
     });
 
     group('constructor', () {
-      test('creates internal Dio instance when none provided', () {
+      test('creates internal Dio instance when none provided', () async {
         final api = MockFleetApi(baseUrl: 'http://test.com');
         expect(api, isA<FleetApi>());
-        api.close();
+        await api.close();
       });
 
       test('uses provided Dio instance', () {
@@ -90,8 +90,9 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarsJson);
-        when(() => dio.get('http://test.com/cars'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars'),
+        ).thenAnswer((_) async => mockResponse);
         await api.fetchCars();
         verify(() => dio.get('http://test.com/cars')).called(1);
       });
@@ -100,8 +101,9 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarsJson);
-        when(() => dio.get('http://test.com/cars'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars'),
+        ).thenAnswer((_) async => mockResponse);
         final cars = await api.fetchCars();
         expect(cars.length, 2);
         expect(cars[0].id, '1');
@@ -112,8 +114,9 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(404);
         when(() => mockResponse.data).thenReturn({'error': 'Not found'});
-        when(() => dio.get('http://test.com/cars'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars'),
+        ).thenAnswer((_) async => mockResponse);
         expect(
           () => api.fetchCars(),
           throwsA(isA<FleetApiException>().having((e) => e.code, 'code', 404)),
@@ -121,45 +124,51 @@ void main() {
         verify(() => dio.get('http://test.com/cars')).called(1);
       });
 
-      test('throws FleetApiException with status code on non-200 response',
-          () async {
-        final mockResponse = MockResponse();
-        when(() => mockResponse.statusCode).thenReturn(500);
-        when(() => mockResponse.data).thenReturn({'error': 'Server error'});
-        when(() => dio.get('http://test.com/cars'))
-            .thenAnswer((_) async => mockResponse);
-        expect(
-          () => api.fetchCars(),
-          throwsA(
-            isA<FleetApiException>()
-                .having((e) => e.message, 'message', 'Failed to fetch cars')
-                .having((e) => e.code, 'code', 500),
-          ),
-        );
-      });
+      test(
+        'throws FleetApiException with status code on non-200 response',
+        () async {
+          final mockResponse = MockResponse();
+          when(() => mockResponse.statusCode).thenReturn(500);
+          when(() => mockResponse.data).thenReturn({'error': 'Server error'});
+          when(
+            () => dio.get('http://test.com/cars'),
+          ).thenAnswer((_) async => mockResponse);
+          expect(
+            () => api.fetchCars(),
+            throwsA(
+              isA<FleetApiException>()
+                  .having((e) => e.message, 'message', 'Failed to fetch cars')
+                  .having((e) => e.code, 'code', 500),
+            ),
+          );
+        },
+      );
 
-      test('throws FleetApiException with null status code for network errors',
-          () async {
-        when(() => dio.get('http://test.com/cars')).thenThrow(
-          DioException(
-            requestOptions: RequestOptions(path: '/cars'),
-            message: 'Connection failed',
-            // No response = null status code
-          ),
-        );
-        expect(
-          () => api.fetchCars(),
-          throwsA(
-            isA<FleetApiException>()
-                .having((e) => e.message, 'message', 'Connection failed')
-                .having((e) => e.code, 'code', null),
-          ),
-        );
-      });
+      test(
+        'throws FleetApiException with null status code for network errors',
+        () async {
+          when(() => dio.get('http://test.com/cars')).thenThrow(
+            DioException(
+              requestOptions: RequestOptions(path: '/cars'),
+              message: 'Connection failed',
+              // No response = null status code
+            ),
+          );
+          expect(
+            () => api.fetchCars(),
+            throwsA(
+              isA<FleetApiException>()
+                  .having((e) => e.message, 'message', 'Connection failed')
+                  .having((e) => e.code, 'code', null),
+            ),
+          );
+        },
+      );
 
       test('rethrows non-Dio exceptions', () async {
-        when(() => dio.get('http://test.com/cars'))
-            .thenThrow(Exception('Unexpected error'));
+        when(
+          () => dio.get('http://test.com/cars'),
+        ).thenThrow(Exception('Unexpected error'));
         expect(() => api.fetchCars(), throwsA(isA<Exception>()));
       });
     });
@@ -169,8 +178,9 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarJson);
-        when(() => dio.get('http://test.com/cars/1'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars/1'),
+        ).thenAnswer((_) async => mockResponse);
         await api.fetchCarDetails(1);
         verify(() => dio.get('http://test.com/cars/1')).called(1);
       });
@@ -179,56 +189,63 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarJson);
-        when(() => dio.get('http://test.com/cars/1'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars/1'),
+        ).thenAnswer((_) async => mockResponse);
         final car = await api.fetchCarDetails(1);
         expect(car.id, '1');
         expect(car.name, 'Test Car 1');
       });
 
-      test('throws FleetApiException with status code on non-200 response',
-          () async {
-        final mockResponse = MockResponse();
-        when(() => mockResponse.statusCode).thenReturn(404);
-        when(() => mockResponse.data).thenReturn({'error': 'Not found'});
-        when(() => dio.get('http://test.com/cars/1'))
-            .thenAnswer((_) async => mockResponse);
-        expect(
-          () => api.fetchCarDetails(1),
-          throwsA(
-            isA<FleetApiException>()
-                .having(
-                  (e) => e.message,
-                  'message',
-                  'Failed to fetch car details',
-                )
-                .having((e) => e.code, 'code', 404),
-          ),
-        );
-      });
+      test(
+        'throws FleetApiException with status code on non-200 response',
+        () async {
+          final mockResponse = MockResponse();
+          when(() => mockResponse.statusCode).thenReturn(404);
+          when(() => mockResponse.data).thenReturn({'error': 'Not found'});
+          when(
+            () => dio.get('http://test.com/cars/1'),
+          ).thenAnswer((_) async => mockResponse);
+          expect(
+            () => api.fetchCarDetails(1),
+            throwsA(
+              isA<FleetApiException>()
+                  .having(
+                    (e) => e.message,
+                    'message',
+                    'Failed to fetch car details',
+                  )
+                  .having((e) => e.code, 'code', 404),
+            ),
+          );
+        },
+      );
 
-      test('throws FleetApiException with null status code for network errors',
-          () async {
-        when(() => dio.get('http://test.com/cars/1')).thenThrow(
-          DioException(
-            requestOptions: RequestOptions(path: '/cars/1'),
-            message: 'Connection timeout',
-            // No response = null status code
-          ),
-        );
-        expect(
-          () => api.fetchCarDetails(1),
-          throwsA(
-            isA<FleetApiException>()
-                .having((e) => e.message, 'message', 'Connection timeout')
-                .having((e) => e.code, 'code', null),
-          ),
-        );
-      });
+      test(
+        'throws FleetApiException with null status code for network errors',
+        () async {
+          when(() => dio.get('http://test.com/cars/1')).thenThrow(
+            DioException(
+              requestOptions: RequestOptions(path: '/cars/1'),
+              message: 'Connection timeout',
+              // No response = null status code
+            ),
+          );
+          expect(
+            () => api.fetchCarDetails(1),
+            throwsA(
+              isA<FleetApiException>()
+                  .having((e) => e.message, 'message', 'Connection timeout')
+                  .having((e) => e.code, 'code', null),
+            ),
+          );
+        },
+      );
 
       test('rethrows non-Dio exceptions', () async {
-        when(() => dio.get('http://test.com/cars/1'))
-            .thenThrow(Exception('Unexpected error'));
+        when(
+          () => dio.get('http://test.com/cars/1'),
+        ).thenThrow(Exception('Unexpected error'));
         expect(() => api.fetchCarDetails(1), throwsA(isA<Exception>()));
       });
     });
@@ -238,14 +255,16 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarsJson);
-        when(() => dio.get('http://test.com/cars'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars'),
+        ).thenAnswer((_) async => mockResponse);
         final stream = api.watchAllCars();
         final subscription = stream.listen((_) {});
         await Future<void>.delayed(const Duration(milliseconds: 150));
         await subscription.cancel();
-        verify(() => dio.get('http://test.com/cars'))
-            .called(greaterThanOrEqualTo(1));
+        verify(
+          () => dio.get('http://test.com/cars'),
+        ).called(greaterThanOrEqualTo(1));
       });
     });
 
@@ -254,14 +273,16 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarJson);
-        when(() => dio.get('http://test.com/cars/1'))
-            .thenAnswer((_) async => mockResponse);
+        when(
+          () => dio.get('http://test.com/cars/1'),
+        ).thenAnswer((_) async => mockResponse);
         final stream = api.watchCarLocation(1);
         final subscription = stream.listen((_) {});
         await Future<void>.delayed(const Duration(milliseconds: 150));
         await subscription.cancel();
-        verify(() => dio.get('http://test.com/cars/1'))
-            .called(greaterThanOrEqualTo(1));
+        verify(
+          () => dio.get('http://test.com/cars/1'),
+        ).called(greaterThanOrEqualTo(1));
       });
     });
 

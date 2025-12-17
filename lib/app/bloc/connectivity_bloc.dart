@@ -31,7 +31,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
     on<ConnectivityStatusChanged>(_onConnectivityChanged);
 
     // Initial check
-    _checkConnection();
+    unawaited(_checkConnection());
 
     // Listen for changes
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
@@ -79,8 +79,8 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   }
 
   @override
-  Future<void> close() {
-    _connectivitySubscription?.cancel();
+  Future<void> close() async {
+    await _connectivitySubscription?.cancel();
     return super.close();
   }
 }
