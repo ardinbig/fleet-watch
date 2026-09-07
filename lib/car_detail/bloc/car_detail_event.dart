@@ -2,7 +2,7 @@ part of 'car_detail_bloc.dart';
 
 /// Base class for all car detail events
 sealed class CarDetailEvent extends Equatable {
-  const CarDetailEvent();
+  const new();
 
   @override
   List<Object> get props => [];
@@ -10,7 +10,7 @@ sealed class CarDetailEvent extends Equatable {
 
 /// Event to start tracking a specific car's location
 class StartTrackingCar extends CarDetailEvent {
-  const StartTrackingCar(this.car);
+  const new(this.car);
 
   /// The car to track
   final Car car;
@@ -21,14 +21,14 @@ class StartTrackingCar extends CarDetailEvent {
 
 /// Event to toggle tracking on/off for the current car
 class ToggleTracking extends CarDetailEvent {
-  const ToggleTracking();
+  const new();
 }
 
 /// Event emitted when a car's location is updated
 ///
 /// This event is not meant to be dispatched directly by the UI
 class UpdateCarLocation extends CarDetailEvent {
-  const UpdateCarLocation(this.car);
+  const new(this.car);
 
   /// The car with updated location
   final Car car;
@@ -39,7 +39,7 @@ class UpdateCarLocation extends CarDetailEvent {
 
 /// Event when map controller is updated
 class MapControllerUpdated extends CarDetailEvent {
-  const MapControllerUpdated(this.controller);
+  const new(this.controller);
 
   final GoogleMapController controller;
 

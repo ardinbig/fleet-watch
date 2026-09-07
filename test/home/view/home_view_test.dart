@@ -8,13 +8,13 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
+class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc;
 
-class MockFleetRepository extends Mock implements FleetRepository {}
+class MockFleetRepository extends Mock implements FleetRepository;
 
-class MockGoogleMapController extends Mock implements GoogleMapController {}
+class MockGoogleMapController extends Mock implements GoogleMapController;
 
-class FakeHomeEvent extends Fake implements HomeEvent {}
+class FakeHomeEvent extends Fake implements HomeEvent;
 
 void main() {
   late MockHomeBloc homeBloc;
@@ -75,15 +75,13 @@ void main() {
     final mockController = MockGoogleMapController();
     googleMapWidget.onMapCreated!(mockController);
 
-    verify(
-      () => homeBloc.add(any(that: isA<MapControllerUpdated>())),
-    ).called(1);
+    verify(() => homeBloc.add(any(that: isA<MapControllerUpdated>())))
+        .called(1);
   });
 
   testWidgets('creates markers when state is MapViewLoaded', (tester) async {
-    when(
-      () => homeBloc.state,
-    ).thenReturn(MapViewLoaded(cars: testCars, filteredCars: testCars));
+    when(() => homeBloc.state)
+        .thenReturn(MapViewLoaded(cars: testCars, filteredCars: testCars));
 
     await tester.pumpApp(
       const HomeView(),
@@ -110,9 +108,8 @@ void main() {
         speed: 0,
       ),
     ];
-    when(
-      () => homeBloc.state,
-    ).thenReturn(MapViewLoaded(cars: testCars, filteredCars: testCars));
+    when(() => homeBloc.state)
+        .thenReturn(MapViewLoaded(cars: testCars, filteredCars: testCars));
 
     await tester.pumpApp(
       const HomeView(),
@@ -134,9 +131,8 @@ void main() {
   testWidgets('defaults camera position when no cars available', (
     tester,
   ) async {
-    when(
-      () => homeBloc.state,
-    ).thenReturn(const MapViewLoaded(cars: [], filteredCars: []));
+    when(() => homeBloc.state)
+        .thenReturn(const MapViewLoaded(cars: [], filteredCars: []));
 
     await tester.pumpApp(
       const HomeView(),
@@ -155,9 +151,8 @@ void main() {
   testWidgets('navigates to CarDetailPage when marker is tapped', (
     tester,
   ) async {
-    when(
-      () => homeBloc.state,
-    ).thenReturn(MapViewLoaded(cars: testCars, filteredCars: testCars));
+    when(() => homeBloc.state)
+        .thenReturn(MapViewLoaded(cars: testCars, filteredCars: testCars));
 
     await tester.pumpApp(
       const HomeView(),

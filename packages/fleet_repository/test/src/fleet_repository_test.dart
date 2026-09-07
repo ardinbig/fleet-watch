@@ -4,13 +4,13 @@ import 'package:mock_fleet_api/mock_fleet_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockMockFleetApi extends Mock implements MockFleetApi {}
+class MockMockFleetApi extends Mock implements MockFleetApi;
 
-class MockHiveFleetApi extends Mock implements HiveFleetApi {}
+class MockHiveFleetApi extends Mock implements HiveFleetApi;
 
-class MockBox<T> extends Mock implements Box<T> {}
+class MockBox<T> extends Mock implements Box<T>;
 
-class FakeCar extends Fake implements Car {}
+class FakeCar extends Fake implements Car;
 
 void main() {
   late FleetRepository repository;
@@ -59,9 +59,8 @@ void main() {
     when(() => localApi.box).thenReturn(box);
     when(() => localApi.fetchCars()).thenAnswer((_) async => cars);
     when(() => localApi.saveCar(any())).thenAnswer((_) async {});
-    when(
-      () => localApi.watchAllCars(pollInterval: any(named: 'pollInterval')),
-    ).thenAnswer((_) => Stream.value(cars));
+    when(() => localApi.watchAllCars(pollInterval: any(named: 'pollInterval')))
+        .thenAnswer((_) => Stream.value(cars));
     when(() => localApi.fetchCarDetails(any())).thenAnswer((_) async => car);
     when(
       () => localApi.watchCarLocation(
@@ -164,9 +163,8 @@ void main() {
       test('watchCachedCars passes custom poll interval', () {
         const customInterval = Duration(seconds: 5);
         repository.watchCachedCars(pollInterval: customInterval);
-        verify(
-          () => localApi.watchAllCars(pollInterval: customInterval),
-        ).called(1);
+        verify(() => localApi.watchAllCars(pollInterval: customInterval))
+            .called(1);
       });
 
       test('watchCachedCarLocation streams car from local cache', () {
@@ -177,9 +175,8 @@ void main() {
       test('watchCachedCarLocation passes custom poll interval', () {
         const customInterval = Duration(seconds: 5);
         repository.watchCachedCarLocation(1, pollInterval: customInterval);
-        verify(
-          () => localApi.watchCarLocation(1, pollInterval: customInterval),
-        ).called(1);
+        verify(() => localApi.watchCarLocation(1, pollInterval: customInterval))
+            .called(1);
       });
     });
 
@@ -198,9 +195,8 @@ void main() {
       test(
         'fetchAndCacheCarDetails falls back to cache on remote failure',
         () async {
-          when(
-            () => remoteApi.fetchCarDetails(any()),
-          ).thenThrow(Exception('Network error'));
+          when(() => remoteApi.fetchCarDetails(any()))
+              .thenThrow(Exception('Network error'));
 
           final result = await repository.fetchAndCacheCarDetails(1);
 

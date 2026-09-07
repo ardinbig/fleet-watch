@@ -7,7 +7,7 @@ import 'package:fleet_api/src/models/models.dart';
 /// {@endtemplate}
 abstract class FleetApi {
   /// {@macro fleet_api}
-  const FleetApi();
+  const new();
 
   /// Fetches the current list of cars once.
   Future<List<Car>> fetchCars();

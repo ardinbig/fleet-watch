@@ -10,7 +10,7 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/pump_app.dart';
 
-class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
+class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc;
 
 void main() {
   late FleetRepository fleetRepository;
@@ -18,12 +18,10 @@ void main() {
   setUp(() {
     fleetRepository = MockFleetRepository();
 
-    when(
-      () => fleetRepository.fetchAndCacheCars(),
-    ).thenAnswer((_) async => <Car>[]);
-    when(
-      () => fleetRepository.getCachedCars(),
-    ).thenAnswer((_) async => <Car>[]);
+    when(() => fleetRepository.fetchAndCacheCars())
+        .thenAnswer((_) async => <Car>[]);
+    when(() => fleetRepository.getCachedCars())
+        .thenAnswer((_) async => <Car>[]);
     when(() => fleetRepository.dispose()).thenAnswer((_) async {});
   });
 

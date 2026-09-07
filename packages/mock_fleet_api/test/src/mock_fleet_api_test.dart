@@ -7,13 +7,13 @@ import 'package:mock_fleet_api/mock_fleet_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockDio extends Mock implements Dio {}
+class MockDio extends Mock implements Dio;
 
-class MockResponse extends Mock implements Response<dynamic> {}
+class MockResponse extends Mock implements Response<dynamic>;
 
-class FakeDioOptions extends Fake implements BaseOptions {}
+class FakeDioOptions extends Fake implements BaseOptions;
 
-class FakeRequestOptions extends Fake implements RequestOptions {}
+class FakeRequestOptions extends Fake implements RequestOptions;
 
 void main() {
   group('MockFleetApi', () {
@@ -90,9 +90,8 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarsJson);
-        when(
-          () => dio.get('http://test.com/cars'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars'))
+            .thenAnswer((_) async => mockResponse);
         await api.fetchCars();
         verify(() => dio.get('http://test.com/cars')).called(1);
       });
@@ -101,9 +100,8 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarsJson);
-        when(
-          () => dio.get('http://test.com/cars'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars'))
+            .thenAnswer((_) async => mockResponse);
         final cars = await api.fetchCars();
         expect(cars.length, 2);
         expect(cars[0].id, '1');
@@ -114,9 +112,8 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(404);
         when(() => mockResponse.data).thenReturn({'error': 'Not found'});
-        when(
-          () => dio.get('http://test.com/cars'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars'))
+            .thenAnswer((_) async => mockResponse);
         expect(
           () => api.fetchCars(),
           throwsA(isA<FleetApiException>().having((e) => e.code, 'code', 404)),
@@ -130,9 +127,8 @@ void main() {
           final mockResponse = MockResponse();
           when(() => mockResponse.statusCode).thenReturn(500);
           when(() => mockResponse.data).thenReturn({'error': 'Server error'});
-          when(
-            () => dio.get('http://test.com/cars'),
-          ).thenAnswer((_) async => mockResponse);
+          when(() => dio.get('http://test.com/cars'))
+              .thenAnswer((_) async => mockResponse);
           expect(
             () => api.fetchCars(),
             throwsA(
@@ -166,9 +162,8 @@ void main() {
       );
 
       test('rethrows non-Dio exceptions', () async {
-        when(
-          () => dio.get('http://test.com/cars'),
-        ).thenThrow(Exception('Unexpected error'));
+        when(() => dio.get('http://test.com/cars'))
+            .thenThrow(Exception('Unexpected error'));
         expect(() => api.fetchCars(), throwsA(isA<Exception>()));
       });
     });
@@ -178,9 +173,8 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarJson);
-        when(
-          () => dio.get('http://test.com/cars/1'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars/1'))
+            .thenAnswer((_) async => mockResponse);
         await api.fetchCarDetails(1);
         verify(() => dio.get('http://test.com/cars/1')).called(1);
       });
@@ -189,9 +183,8 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarJson);
-        when(
-          () => dio.get('http://test.com/cars/1'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars/1'))
+            .thenAnswer((_) async => mockResponse);
         final car = await api.fetchCarDetails(1);
         expect(car.id, '1');
         expect(car.name, 'Test Car 1');
@@ -203,9 +196,8 @@ void main() {
           final mockResponse = MockResponse();
           when(() => mockResponse.statusCode).thenReturn(404);
           when(() => mockResponse.data).thenReturn({'error': 'Not found'});
-          when(
-            () => dio.get('http://test.com/cars/1'),
-          ).thenAnswer((_) async => mockResponse);
+          when(() => dio.get('http://test.com/cars/1'))
+              .thenAnswer((_) async => mockResponse);
           expect(
             () => api.fetchCarDetails(1),
             throwsA(
@@ -243,9 +235,8 @@ void main() {
       );
 
       test('rethrows non-Dio exceptions', () async {
-        when(
-          () => dio.get('http://test.com/cars/1'),
-        ).thenThrow(Exception('Unexpected error'));
+        when(() => dio.get('http://test.com/cars/1'))
+            .thenThrow(Exception('Unexpected error'));
         expect(() => api.fetchCarDetails(1), throwsA(isA<Exception>()));
       });
     });
@@ -255,16 +246,14 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarsJson);
-        when(
-          () => dio.get('http://test.com/cars'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars'))
+            .thenAnswer((_) async => mockResponse);
         final stream = api.watchAllCars();
         final subscription = stream.listen((_) {});
         await Future<void>.delayed(const Duration(milliseconds: 150));
         await subscription.cancel();
-        verify(
-          () => dio.get('http://test.com/cars'),
-        ).called(greaterThanOrEqualTo(1));
+        verify(() => dio.get('http://test.com/cars'))
+            .called(greaterThanOrEqualTo(1));
       });
     });
 
@@ -273,16 +262,14 @@ void main() {
         final mockResponse = MockResponse();
         when(() => mockResponse.statusCode).thenReturn(200);
         when(() => mockResponse.data).thenReturn(mockCarJson);
-        when(
-          () => dio.get('http://test.com/cars/1'),
-        ).thenAnswer((_) async => mockResponse);
+        when(() => dio.get('http://test.com/cars/1'))
+            .thenAnswer((_) async => mockResponse);
         final stream = api.watchCarLocation(1);
         final subscription = stream.listen((_) {});
         await Future<void>.delayed(const Duration(milliseconds: 150));
         await subscription.cancel();
-        verify(
-          () => dio.get('http://test.com/cars/1'),
-        ).called(greaterThanOrEqualTo(1));
+        verify(() => dio.get('http://test.com/cars/1'))
+            .called(greaterThanOrEqualTo(1));
       });
     });
 

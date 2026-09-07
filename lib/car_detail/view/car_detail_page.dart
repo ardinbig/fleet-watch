@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CarDetailPage extends StatelessWidget {
-  const CarDetailPage({required this.car, required this.repository, super.key});
+  const new({required this.car, required this.repository, super.key});
 
   final Car car;
   final FleetRepository repository;
@@ -22,14 +22,14 @@ class CarDetailPage extends StatelessWidget {
 }
 
 class CarDetailView extends StatelessWidget {
-  const CarDetailView({required this.car, super.key});
+  const new({required this.car, super.key});
 
   final Car car;
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: (bool didPop, Object? result) async {
+      onPopInvokedWithResult: (didPop, result) async {
         final bloc = context.read<CarDetailBloc>();
         if (bloc.state.isTracking) {
           bloc.add(const ToggleTracking());
@@ -61,9 +61,9 @@ class CarDetailView extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(12),
                           child: Material(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.primaryContainer,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primaryContainer,
                             borderRadius: BorderRadius.circular(20),
                             child: Padding(
                               padding: const EdgeInsets.all(16),

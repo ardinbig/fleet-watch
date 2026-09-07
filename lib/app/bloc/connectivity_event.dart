@@ -1,11 +1,11 @@
 part of 'connectivity_bloc.dart';
 
 sealed class ConnectivityEvent extends Equatable {
-  const ConnectivityEvent();
+  const new();
 }
 
 class ConnectivityStatusChanged extends ConnectivityEvent {
-  const ConnectivityStatusChanged({required this.isOnline});
+  const new({required this.isOnline});
 
   final bool isOnline;
 

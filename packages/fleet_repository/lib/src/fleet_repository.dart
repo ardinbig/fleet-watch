@@ -11,7 +11,7 @@ import 'package:mock_fleet_api/mock_fleet_api.dart';
 /// {@endtemplate}
 class FleetRepository {
   /// {@macro fleet_repository}
-  FleetRepository({MockFleetApi? remoteApi, HiveFleetApi? localApi})
+  new({MockFleetApi? remoteApi, HiveFleetApi? localApi})
     : _remoteApi = remoteApi ?? MockFleetApi(),
       _localApi = localApi ?? hiveFleetApiFactory();
 
@@ -50,7 +50,7 @@ class FleetRepository {
       return cars;
     } on Exception catch (_) {
       // On error fallback to cache
-      return getCachedCars();
+      return await getCachedCars();
     }
   }
 
@@ -62,7 +62,7 @@ class FleetRepository {
 
   /// Get cars from local cache directly.
   Future<List<Car>> getCachedCars() async {
-    return _localApi.fetchCars();
+    return await _localApi.fetchCars();
   }
 
   /// Watch cars updates using local cache.
@@ -78,13 +78,13 @@ class FleetRepository {
       await _localApi.saveCar(car);
       return car;
     } on Exception catch (_) {
-      return getCachedCarDetails(id);
+      return await getCachedCarDetails(id);
     }
   }
 
   /// Get car details from cache.
   Future<Car> getCachedCarDetails(int id) async {
-    return _localApi.fetchCarDetails(id);
+    return await _localApi.fetchCarDetails(id);
   }
 
   /// Watch a single car location from local cache stream.

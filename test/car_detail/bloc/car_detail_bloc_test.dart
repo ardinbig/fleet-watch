@@ -5,11 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFleetRepository extends Mock implements FleetRepository {}
+class MockFleetRepository extends Mock implements FleetRepository;
 
-class MockGoogleMapController extends Mock implements GoogleMapController {}
+class MockGoogleMapController extends Mock implements GoogleMapController;
 
-class FakeCameraUpdate extends Fake implements CameraUpdate {}
+class FakeCameraUpdate extends Fake implements CameraUpdate;
 
 void main() {
   late CarDetailBloc carDetailBloc;
@@ -63,9 +63,8 @@ void main() {
     blocTest<CarDetailBloc, CarDetailState>(
       'updates isTracking when ToggleTracking is added',
       build: () {
-        when(
-          () => mockRepository.fetchAndCacheCarDetails(1),
-        ).thenAnswer((_) async => updatedMockCar);
+        when(() => mockRepository.fetchAndCacheCarDetails(1))
+            .thenAnswer((_) async => updatedMockCar);
         return carDetailBloc;
       },
       seed: () => CarDetailState.initial().copyWith(car: mockCar),
@@ -79,9 +78,8 @@ void main() {
   blocTest<CarDetailBloc, CarDetailState>(
     'creates timer that fetches car updates periodically',
     build: () {
-      when(
-        () => mockRepository.fetchAndCacheCarDetails(1),
-      ).thenAnswer((_) async => updatedMockCar);
+      when(() => mockRepository.fetchAndCacheCarDetails(1))
+          .thenAnswer((_) async => updatedMockCar);
       return CarDetailBloc(repository: mockRepository);
     },
     seed: () => CarDetailState.initial().copyWith(car: mockCar),
@@ -103,9 +101,8 @@ void main() {
 
     setUp(() {
       mockMapController = MockGoogleMapController();
-      when(
-        () => mockMapController.animateCamera(any<CameraUpdate>()),
-      ).thenAnswer((_) async {});
+      when(() => mockMapController.animateCamera(any<CameraUpdate>()))
+          .thenAnswer((_) async {});
     });
 
     blocTest<CarDetailBloc, CarDetailState>(
@@ -123,9 +120,8 @@ void main() {
         ),
       ],
       verify: (_) {
-        verify(
-          () => mockMapController.animateCamera(any<CameraUpdate>()),
-        ).called(1);
+        verify(() => mockMapController.animateCamera(any<CameraUpdate>()))
+            .called(1);
       },
     );
 

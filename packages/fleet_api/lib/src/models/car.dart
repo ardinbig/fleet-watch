@@ -13,7 +13,7 @@ part 'car.g.dart';
 @JsonSerializable()
 class Car extends Equatable {
   /// {@macro car_item}
-  const Car({
+  const new({
     required this.id,
     required this.name,
     required this.latitude,

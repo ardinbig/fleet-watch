@@ -5,7 +5,7 @@
 /// {@endtemplate}
 class FleetApiException implements Exception {
   /// {@macro fleet_api_exception}
-  FleetApiException(this.message, [this.code]);
+  new(this.message, [this.code]);
 
   /// The error message.
   final String message;

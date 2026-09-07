@@ -5,9 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFleetRepository extends Mock implements FleetRepository {}
+class MockFleetRepository extends Mock implements FleetRepository;
 
-class MockGoogleMapController extends Mock implements GoogleMapController {}
+class MockGoogleMapController extends Mock implements GoogleMapController;
 
 void main() {
   late FleetRepository repo;
@@ -61,9 +61,8 @@ void main() {
     blocTest<HomeBloc, HomeState>(
       'emits [Loading, Error] on MapLoadCars failure',
       build: () {
-        when(
-          () => repo.fetchAndCacheCars(),
-        ).thenThrow(Exception('Failed to load cars'));
+        when(() => repo.fetchAndCacheCars())
+            .thenThrow(Exception('Failed to load cars'));
         return HomeBloc(repository: repo);
       },
       act: (bloc) => bloc.add(MapLoadCars()),
@@ -77,9 +76,8 @@ void main() {
       'emits [MapViewError] when MapUpdateCars fails',
       seed: () => MapViewLoaded(cars: cars, filteredCars: cars),
       build: () {
-        when(
-          () => repo.getCachedCars(),
-        ).thenThrow(Exception('Failed to get cached cars'));
+        when(() => repo.getCachedCars())
+            .thenThrow(Exception('Failed to get cached cars'));
         return HomeBloc(repository: repo);
       },
       act: (bloc) => bloc.add(MapUpdateCars()),
@@ -117,30 +115,26 @@ void main() {
       ],
     );
 
-    test(
-      'timer periodically adds MapUpdateCars events',
-      () async {
-        when(() => repo.fetchAndCacheCars()).thenAnswer((_) async => cars);
-        var callCount = 0;
-        when(() => repo.getCachedCars()).thenAnswer((_) async {
-          callCount++;
-          return cars;
-        });
+    test('timer periodically adds MapUpdateCars events', () async {
+      when(() => repo.fetchAndCacheCars()).thenAnswer((_) async => cars);
+      var callCount = 0;
+      when(() => repo.getCachedCars()).thenAnswer((_) async {
+        callCount++;
+        return cars;
+      });
 
-        final bloc = HomeBloc(repository: repo)..add(MapLoadCars());
-        await Future<void>.delayed(const Duration(seconds: 6));
+      final bloc = HomeBloc(repository: repo)..add(MapLoadCars());
+      await Future<void>.delayed(const Duration(seconds: 6));
 
-        verify(() => repo.fetchAndCacheCars()).called(1);
-        expect(
-          callCount,
-          greaterThan(0),
-          reason: 'Timer should have triggered at least one update',
-        );
+      verify(() => repo.fetchAndCacheCars()).called(1);
+      expect(
+        callCount,
+        greaterThan(0),
+        reason: 'Timer should have triggered at least one update',
+      );
 
-        await bloc.close();
-      },
-      timeout: const Timeout(Duration(seconds: 10)),
-    );
+      await bloc.close();
+    }, timeout: const Timeout(Duration(seconds: 10)));
 
     blocTest<HomeBloc, HomeState>(
       'updates controller with MapControllerUpdated',

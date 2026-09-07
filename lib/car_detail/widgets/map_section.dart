@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSection extends StatefulWidget {
-  const MapSection({required this.car, super.key});
+  const new({required this.car, super.key});
 
   final Car car;
 

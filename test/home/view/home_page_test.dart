@@ -6,9 +6,9 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
+class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc;
 
-class FakeHomeEvent extends Fake implements HomeEvent {}
+class FakeHomeEvent extends Fake implements HomeEvent;
 
 void main() {
   late MockHomeBloc homeBloc;

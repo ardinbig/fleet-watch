@@ -9,9 +9,7 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required FleetRepository repository})
-    : _repository = repository,
-      super(MapViewInitial()) {
+  new({required this._repository}) : super(MapViewInitial()) {
     on<MapLoadCars>(_onLoadCars);
     on<MapUpdateCars>(_onUpdateCars);
     on<MapControllerUpdated>(_onMapControllerUpdated);

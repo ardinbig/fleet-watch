@@ -12,7 +12,7 @@ import 'package:mock_fleet_api/src/dio/app_interceptors.dart';
 /// {@endtemplate}
 class MockFleetApi implements FleetApi {
   /// {@macro mock_fleet_api}
-  MockFleetApi({
+  new({
     Dio? dio,
     String baseUrl = 'https://68263c13397e48c913157416.mockapi.io',
     this.pollInterval = const Duration(seconds: 5),

@@ -4,10 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('FleetApiException', () {
     test('can be instantiated', () {
-      expect(
-        FleetApiException('error message'),
-        isA<FleetApiException>(),
-      );
+      expect(FleetApiException('error message'), isA<FleetApiException>());
     });
 
     test('toString returns correct message without code', () {

@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const new({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();

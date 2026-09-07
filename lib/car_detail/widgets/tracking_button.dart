@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:fleet_watch/app/bloc/connectivity_bloc.dart';
 import 'package:fleet_watch/car_detail/bloc/car_detail_bloc.dart';
 import 'package:fleet_watch/l10n/l10n.dart';
@@ -7,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TrackingButton extends StatefulWidget {
-  const TrackingButton({required this.isTracking, super.key});
+  const new({required this.isTracking, super.key});
 
   final bool isTracking;
 
@@ -27,7 +25,7 @@ class _TrackingButtonState extends State<TrackingButton>
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    unawaited(_controller.repeat(reverse: true));
+    _controller.repeat(reverse: true);
     _animation = Tween<double>(
       begin: 0,
       end: 4,

@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

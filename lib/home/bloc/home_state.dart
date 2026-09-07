@@ -1,21 +1,21 @@
 part of 'home_bloc.dart';
 
 abstract class HomeState extends Equatable {
-  const HomeState();
+  const new();
 
   @override
   List<Object?> get props => [];
 }
 
 /// Initial state before map is loaded
-class MapViewInitial extends HomeState {}
+class MapViewInitial extends HomeState;
 
 /// Loading state while fetching data
-class MapViewLoading extends HomeState {}
+class MapViewLoading extends HomeState;
 
 /// Loaded state with cars data and filter/search state
 class MapViewLoaded extends HomeState {
-  const MapViewLoaded({
+  const new({
     required this.cars,
     required this.filteredCars,
     this.controller,
@@ -58,7 +58,7 @@ class MapViewLoaded extends HomeState {
 
 /// Error state with error message
 class MapViewError extends HomeState {
-  const MapViewError(this.message);
+  const new(this.message);
 
   final String message;
 

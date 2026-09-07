@@ -1,21 +1,21 @@
 part of 'home_bloc.dart';
 
 abstract class HomeEvent extends Equatable {
-  const HomeEvent();
+  const new();
 
   @override
   List<Object?> get props => [];
 }
 
 /// Trigger initial load of car markers
-class MapLoadCars extends HomeEvent {}
+class MapLoadCars extends HomeEvent;
 
 /// Trigger update (e.g. periodic)
-class MapUpdateCars extends HomeEvent {}
+class MapUpdateCars extends HomeEvent;
 
 /// Event when map controller is updated
 class MapControllerUpdated extends HomeEvent {
-  const MapControllerUpdated(this.controller);
+  const new(this.controller);
 
   final GoogleMapController controller;
 
@@ -25,7 +25,7 @@ class MapControllerUpdated extends HomeEvent {
 
 /// Event when search query changes
 class MapSearchQueryChanged extends HomeEvent {
-  const MapSearchQueryChanged(this.query);
+  const new(this.query);
 
   final String query;
 
@@ -35,7 +35,7 @@ class MapSearchQueryChanged extends HomeEvent {
 
 /// Event when filter status changes
 class MapFilterStatusChanged extends HomeEvent {
-  const MapFilterStatusChanged(this.status);
+  const new(this.status);
 
   final String status;
 

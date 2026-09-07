@@ -1,7 +1,7 @@
 part of 'connectivity_bloc.dart';
 
 class ConnectivityState extends Equatable {
-  const ConnectivityState({required this.isOnline});
+  const new({required this.isOnline});
 
   final bool isOnline;
 

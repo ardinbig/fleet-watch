@@ -7,11 +7,11 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/helpers.dart';
 
-class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc {}
+class MockHomeBloc extends MockBloc<HomeEvent, HomeState> implements HomeBloc;
 
-class FakeHomeEvent extends Fake implements HomeEvent {}
+class FakeHomeEvent extends Fake implements HomeEvent;
 
-class MockMapViewLoaded extends Mock implements MapViewLoaded {}
+class MockMapViewLoaded extends Mock implements MapViewLoaded;
 
 void main() {
   late MockHomeBloc homeBloc;
@@ -87,9 +87,8 @@ void main() {
       final l10n = AppLocalizations.of(context);
       await tester.tap(find.text(l10n.filterMoving).last);
       await tester.pumpAndSettle();
-      verify(
-        () => homeBloc.add(const MapFilterStatusChanged('Moving')),
-      ).called(1);
+      verify(() => homeBloc.add(const MapFilterStatusChanged('Moving')))
+          .called(1);
     });
 
     group('_getFilterText', () {

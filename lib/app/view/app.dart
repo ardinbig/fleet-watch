@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatelessWidget {
-  const App({required this.createFleetRepository, super.key});
+  const new({required this.createFleetRepository, super.key});
 
   final FleetRepository Function() createFleetRepository;
 
@@ -33,7 +33,7 @@ class App extends StatelessWidget {
 }
 
 class AppView extends StatelessWidget {
-  const AppView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

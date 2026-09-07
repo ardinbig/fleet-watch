@@ -21,10 +21,8 @@ class InternetChecker {
 }
 
 class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
-  ConnectivityBloc({
-    Connectivity? connectivity,
-    InternetChecker? internetChecker,
-  }) : super(const ConnectivityState(isOnline: false)) {
+  new({Connectivity? connectivity, InternetChecker? internetChecker})
+    : super(const ConnectivityState(isOnline: false)) {
     _connectivity = connectivity ?? Connectivity();
     _internetChecker = internetChecker ?? InternetChecker();
 
@@ -68,7 +66,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   }
 
   Future<bool> _checkInternet() async {
-    return _internetChecker.checkInternet();
+    return await _internetChecker.checkInternet();
   }
 
   void _onConnectivityChanged(
@@ -81,6 +79,6 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
   @override
   Future<void> close() async {
     await _connectivitySubscription?.cancel();
-    return super.close();
+    return await super.close();
   }
 }

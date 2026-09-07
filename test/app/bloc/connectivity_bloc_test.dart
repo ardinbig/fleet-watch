@@ -7,9 +7,9 @@ import 'package:fleet_watch/app/bloc/connectivity_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockConnectivity extends Mock implements Connectivity {}
+class MockConnectivity extends Mock implements Connectivity;
 
-class MockInternetChecker extends Mock implements InternetChecker {}
+class MockInternetChecker extends Mock implements InternetChecker;
 
 void main() {
   late MockConnectivity mockConnectivity;
@@ -21,15 +21,12 @@ void main() {
     mockConnectivity = MockConnectivity();
     mockInternetChecker = MockInternetChecker();
     connectivityController = StreamController.broadcast();
-    when(
-      () => mockConnectivity.checkConnectivity(),
-    ).thenAnswer((_) async => [ConnectivityResult.wifi]);
-    when(
-      () => mockConnectivity.onConnectivityChanged,
-    ).thenAnswer((_) => connectivityController.stream);
-    when(
-      () => mockInternetChecker.checkInternet(),
-    ).thenAnswer((_) async => true);
+    when(() => mockConnectivity.checkConnectivity())
+        .thenAnswer((_) async => [ConnectivityResult.wifi]);
+    when(() => mockConnectivity.onConnectivityChanged)
+        .thenAnswer((_) => connectivityController.stream);
+    when(() => mockInternetChecker.checkInternet())
+        .thenAnswer((_) async => true);
   });
 
   tearDown(() async {
@@ -54,9 +51,8 @@ void main() {
         build: () => ConnectivityBloc(connectivity: mockConnectivity),
         seed: () => const ConnectivityState(isOnline: true),
         setUp: () {
-          when(
-            () => mockConnectivity.checkConnectivity(),
-          ).thenAnswer((_) async => [ConnectivityResult.none]);
+          when(() => mockConnectivity.checkConnectivity())
+              .thenAnswer((_) async => [ConnectivityResult.none]);
         },
         act: (bloc) => connectivityController.add([ConnectivityResult.none]),
         expect: () => const [ConnectivityState(isOnline: false)],
@@ -86,9 +82,8 @@ void main() {
         build: () => ConnectivityBloc(connectivity: mockConnectivity),
         seed: () => const ConnectivityState(isOnline: false),
         setUp: () {
-          when(
-            () => mockConnectivity.checkConnectivity(),
-          ).thenAnswer((_) async => [ConnectivityResult.mobile]);
+          when(() => mockConnectivity.checkConnectivity())
+              .thenAnswer((_) async => [ConnectivityResult.mobile]);
         },
         act: (bloc) => connectivityController.add([ConnectivityResult.mobile]),
         expect: () => const [ConnectivityState(isOnline: true)],
@@ -100,9 +95,8 @@ void main() {
       blocTest<ConnectivityBloc, ConnectivityState>(
         'emits offline when connectivity exists but no internet',
         setUp: () {
-          when(
-            () => mockConnectivity.checkConnectivity(),
-          ).thenThrow(const SocketException('No internet'));
+          when(() => mockConnectivity.checkConnectivity())
+              .thenThrow(const SocketException('No internet'));
         },
         build: () => ConnectivityBloc(connectivity: mockConnectivity),
         act: (bloc) => connectivityController.add([ConnectivityResult.wifi]),
@@ -126,9 +120,8 @@ void main() {
         ),
         seed: () => const ConnectivityState(isOnline: true),
         setUp: () {
-          when(
-            () => mockInternetChecker.checkInternet(),
-          ).thenAnswer((_) async => false);
+          when(() => mockInternetChecker.checkInternet())
+              .thenAnswer((_) async => false);
         },
         act: (bloc) => connectivityController.add([ConnectivityResult.wifi]),
         expect: () => const [ConnectivityState(isOnline: false)],

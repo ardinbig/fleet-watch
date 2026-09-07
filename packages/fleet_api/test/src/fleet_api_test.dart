@@ -2,7 +2,7 @@ import 'package:fleet_api/fleet_api.dart';
 import 'package:test/test.dart';
 
 class TestFleetApi extends FleetApi {
-  TestFleetApi() : super();
+  new() : super();
 
   @override
   dynamic noSuchMethod(Invocation invocation) {

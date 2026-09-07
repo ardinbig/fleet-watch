@@ -9,7 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockFleetRepository extends Mock implements FleetRepository {}
+class MockFleetRepository extends Mock implements FleetRepository;
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(

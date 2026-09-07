@@ -4,7 +4,7 @@ import 'package:fleet_watch/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class CarInfoSection extends StatelessWidget {
-  const CarInfoSection({required this.car, super.key});
+  const new({required this.car, super.key});
 
   final Car car;
 

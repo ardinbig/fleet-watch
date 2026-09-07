@@ -10,18 +10,18 @@ import 'package:mocktail/mocktail.dart';
 
 import '../../helpers/pump_app.dart';
 
-class MockFleetRepository extends Mock implements FleetRepository {}
+class MockFleetRepository extends Mock implements FleetRepository;
 
 class MockCarDetailBloc extends MockBloc<CarDetailEvent, CarDetailState>
-    implements CarDetailBloc {}
+    implements CarDetailBloc;
 
 class MockConnectivityBloc
     extends MockBloc<ConnectivityEvent, ConnectivityState>
-    implements ConnectivityBloc {}
+    implements ConnectivityBloc;
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+class MockNavigatorObserver extends Mock implements NavigatorObserver;
 
-class MockGoogleMapController extends Mock implements GoogleMapController {}
+class MockGoogleMapController extends Mock implements GoogleMapController;
 
 void main() {
   late MockNavigatorObserver navigatorObserver;
@@ -52,9 +52,8 @@ void main() {
 
   group('CarDetailPage', () {
     setUp(() {
-      when(
-        () => repository.fetchAndCacheCarDetails(any()),
-      ).thenAnswer((_) async => testCar);
+      when(() => repository.fetchAndCacheCarDetails(any()))
+          .thenAnswer((_) async => testCar);
     });
 
     testWidgets('provides CarDetailBloc and renders CarDetailView', (
@@ -73,9 +72,8 @@ void main() {
       WidgetTester tester, {
       required bool isTracking,
     }) async {
-      when(
-        () => carDetailBloc.state,
-      ).thenReturn(CarDetailState(car: testCar, isTracking: isTracking));
+      when(() => carDetailBloc.state)
+          .thenReturn(CarDetailState(car: testCar, isTracking: isTracking));
 
       await tester.pumpApp(
         Builder(
@@ -108,9 +106,8 @@ void main() {
     }
 
     setUp(() {
-      when(
-        () => carDetailBloc.state,
-      ).thenReturn(CarDetailState(car: testCar, isTracking: false));
+      when(() => carDetailBloc.state)
+          .thenReturn(CarDetailState(car: testCar, isTracking: false));
     });
 
     testWidgets('renders AppBar with car name', (tester) async {
@@ -163,9 +160,8 @@ void main() {
       final googleMapWidget = tester.widget<GoogleMap>(find.byType(GoogleMap));
       googleMapWidget.onMapCreated!(mockController);
 
-      verify(
-        () => carDetailBloc.add(any(that: isA<MapControllerUpdated>())),
-      ).called(1);
+      verify(() => carDetailBloc.add(any(that: isA<MapControllerUpdated>())))
+          .called(1);
     });
   });
 
@@ -210,12 +206,10 @@ void main() {
       required bool isTracking,
       required bool isOnline,
     }) async {
-      when(
-        () => carDetailBloc.state,
-      ).thenReturn(CarDetailState(car: testCar, isTracking: isTracking));
-      when(
-        () => connectivityBloc.state,
-      ).thenReturn(ConnectivityState(isOnline: isOnline));
+      when(() => carDetailBloc.state)
+          .thenReturn(CarDetailState(car: testCar, isTracking: isTracking));
+      when(() => connectivityBloc.state)
+          .thenReturn(ConnectivityState(isOnline: isOnline));
 
       await tester.pumpApp(
         Scaffold(body: TrackingButton(isTracking: isTracking)),

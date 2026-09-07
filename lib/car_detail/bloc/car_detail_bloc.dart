@@ -9,9 +9,7 @@ part 'car_detail_event.dart';
 part 'car_detail_state.dart';
 
 class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
-  CarDetailBloc({required FleetRepository repository})
-    : _repository = repository,
-      super(CarDetailState.initial()) {
+  new({required this._repository}) : super(CarDetailState.initial()) {
     on<StartTrackingCar>(_onStartTracking);
     on<ToggleTracking>(_onToggleTracking);
     on<UpdateCarLocation>(_onUpdateCarLocation);
@@ -42,9 +40,7 @@ class CarDetailBloc extends Bloc<CarDetailEvent, CarDetailState> {
 
   Future<void> _fetchCarUpdate() async {
     await _repository
-        .fetchAndCacheCarDetails(
-          int.parse(state.car.id),
-        )
+        .fetchAndCacheCarDetails(int.parse(state.car.id))
         .then((updatedCar) => add(UpdateCarLocation(updatedCar)));
   }
 

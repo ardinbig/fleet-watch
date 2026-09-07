@@ -1,13 +1,9 @@
 part of 'car_detail_bloc.dart';
 
 class CarDetailState extends Equatable {
-  const CarDetailState({
-    required this.car,
-    required this.isTracking,
-    this.mapController,
-  });
+  const new({required this.car, required this.isTracking, this.mapController});
 
-  factory CarDetailState.initial() {
+  factory initial() {
     return const CarDetailState(
       car: Car(
         id: '0',

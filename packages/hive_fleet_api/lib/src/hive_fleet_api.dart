@@ -16,7 +16,7 @@ import 'package:rxdart/rxdart.dart';
 /// {@endtemplate}
 class HiveFleetApi implements FleetApi {
   /// {@macro hive_fleet_api}
-  HiveFleetApi({
+  new({
     this.pollInterval = const Duration(seconds: 3),
     HiveInterface? hive,
     FlutterSecureStorage? secureStorage,
